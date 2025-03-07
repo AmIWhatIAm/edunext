@@ -17,22 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Check for required files
-      run: |
-        missing_files=()
-        for file in composer.json .env.example; do
-          if [ ! -f "$file" ]; then
-            missing_files+=("$file")
-          fi
-        done
-        
-        if [ ${#missing_files[@]} -ne 0 ]; then
-          echo "Error: The following required files are missing: ${missing_files[*]}"
-          exit 1
-        fi
-        
-        echo "All required files found."
-
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
@@ -48,15 +32,8 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Check PHP syntax
-      run: find . -name "*.php" -not -path "./vendor/*" -exec php -l {} \;
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    - name: Check directory structure
-      run: |
-        required_dirs=("app" "public" "resources")
-        for dir in "${required_dirs[@]}"; do
-          if [ ! -d "$dir" ]; then
-            echo "Error: Required directory '$dir' is missing"
-            exit 1
-          fi
-        done
+    - name: Run test suite
+      run: composer run-script test

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/upload', function () {
+    return view('upload');
+});
+
+Route::get('/event/create', [EventController::class, 'create']);
+Route::post('/event/store', [EventController::class, 'store'])->name('event.store');

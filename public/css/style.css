@@ -1,0 +1,123 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Make sure the whole page takes full screen */
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* Full screen container */
+.container {
+    display: flex;
+    height: 100vh; /* Full height */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 25%; /* Adjust width as needed */
+    background: #1E3A8A;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.lesson-list {
+    list-style: none;
+    padding: 0;
+}
+
+.lesson {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Main Content */
+.content {
+    flex-grow: 1; /* Makes it take remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: white;
+    overflow-y: auto;
+}
+
+/* Header */
+.header {
+    background: #2AA6A9;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Form Section */
+.event-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.row div {
+    flex: 1;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #0056b3;
+}

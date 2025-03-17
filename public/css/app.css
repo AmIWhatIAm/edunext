@@ -1,0 +1,17 @@
+.header-links > a {
+    text-decoration: none;
+    color: #5b5b5b;
+    transition: color 0.3s ease;
+    font-weight: bolder;
+}
+
+.header-links > a:hover {
+    color: #007bff;
+}
+/* Make sure the whole page takes full screen */
+html, body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+}
+

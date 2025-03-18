@@ -1,4 +1,5 @@
 @import 'components/header.css';
+@import 'components/footer.css';
 
 /* Make sure the whole page takes full screen */
 html, body {

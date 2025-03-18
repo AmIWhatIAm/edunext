@@ -1,0 +1,11 @@
+@import 'components/header.css';
+@import 'components/footer.css';
+
+/* Make sure the whole page takes full screen */
+html, body {
+    margin: 0 auto;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    width: 100vw;
+}

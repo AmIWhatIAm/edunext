@@ -24,3 +24,5 @@ Route::get('/upload', function () {
 
 Route::get('/event/create', [EventController::class, 'create']);
 Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
+
+Route::get('/index',[EventController::class, 'index'])->name('index');

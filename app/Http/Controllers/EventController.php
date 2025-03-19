@@ -30,4 +30,12 @@ public function store(Request $request)
 
     return redirect()->back()->with('success', 'Event Created Successfully!');
 }
+
+// Passes events to the index view
+public function index(){
+    // Retrieves all events
+    $events = Event::all();
+    // compact('events') --> Is used to create an array with a VAR name as the key and its value as the corresponding value
+    return view('index', compact('events'));
+}
 }

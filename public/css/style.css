@@ -121,3 +121,34 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+/* Table Styling */
+table {
+    width: 100%; /* Make the table fill the entire container */
+    border-collapse: collapse; /* Remove space between borders */
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px; /* Add spacing inside cells */
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background: #f9f9f9;
+    height: auto;
+}
+
+tr:nth-child(even) td {
+    background: #f1f1f1; /* Alternate row colors */
+}
+

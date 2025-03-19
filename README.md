@@ -53,7 +53,19 @@ Ensure the `storage` and `bootstrap/cache` directories are writable:
 chmod -R 777 storage bootstrap/cache
 ```
 
-### 6. Run the Development Server
+### 6. Compiling frontend assets
+You can compile the frontend assets using:
+```sh
+npm run dev
+```
+Then wait for Laravel Mix to finish the webpack compilation.
+
+OR additionally to compile automatically on change, run
+```sh
+npm run watch
+```
+
+### 7. Run the Development Server
 You can start the Laravel development server using:
 ```sh
 php artisan serve

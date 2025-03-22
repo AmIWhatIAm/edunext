@@ -1,93 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Page</title>
+{{-- Enable the foostrap function in app.blade.php to see the design --}}
+@extends('layouts.app')
 
-    <!-- Link Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@section('content')
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 bg-white rounded">
+        <h4 class="fw-bold text-primary mb-3">Insert new Subject Chapter</h4>
 
-    <div class="container">
-        {{-- <!-- Sidebar -->
-        <aside class="sidebar">
-            <h2>Change Simplification</h2>
-            <ul class="lesson-list">
-                @for ($i = 0; $i < 5; $i++)
-                <li class="lesson">
-                    <span class="lesson-title">Lesson 01: Introduction about XD</span>
-                    <span class="lesson-time">30 mins</span>
-                </li>
-                @endfor
-            </ul>
+        <br>
 
-            <h2>Practice Quiz</h2>
-            <ul class="lesson-list">
-                @for ($i = 0; $i < 5; $i++)
-                <li class="lesson">
-                    <span class="lesson-title">Lesson 01: Introduction about XD</span>
-                    <span class="lesson-time">30 mins</span>
-                </li>
-                @endfor
-            </ul>
-        </aside> --}}
-
-        <!-- Main Content -->
-        <main class="content">
-            <div class="header">
-                <h1>Learn about Adobe XD & Prototyping</h1>
-                <p>Introduction about XD</p>
-                <span class="time">⏳ 1 hour</span>
+        <form>
+            <!-- Enter Subject Name -->
+            <div class="mb-4">
+                <label for="subject_name" class="form-label fw-semibold">Subject Name</label>
+                <input type="text" class="form-control" id="subject_name" placeholder="Enter subject name">
             </div>
 
-            <div class="event-form">
-                <h2>Create new event</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-
-                <form action="{{ route('event.store') }}" method="POST">
-                    @csrf
-                    <label>Event Name</label>
-                    <input type="text" name="name" required>
-                
-                    <div class="row">
-                        <div>
-                            <label>Start date / Time</label>
-                            <input type="datetime-local" name="start_time" required>
-                        </div>
-                        <div>
-                            <label>End Date / Time</label>
-                            <input type="datetime-local" name="end_time">
-                        </div>
-                    </div>
-                
-                    <label>Location</label>
-                    <input type="text" name="location">
-                
-                    <div class="row">
-                        <div>
-                            <label>Notification</label>
-                            <select name="notification">
-                                <option value="30 mins">30 mins</option>
-                                <option value="1 hour">1 hour</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Email</label>
-                            <input type="email" name="email">
-                        </div>
-                    </div>
-                
-                    <label>Event Description</label>
-                    <textarea name="description"></textarea>
-                
-                    <button type="submit">Save Now</button>
-                </form>
-                
+            <!-- Select Subject Category -->
+            <div class="mb-4">
+                <label for="subject_category" class="form-label fw-semibold">Subject Category</label>
+                <select class="form-select" id="subject_category">
+                    <option selected disabled>Select category</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="history">History</option>
+                </select>
             </div>
-        </main>
+
+            <!-- Enter time to complete -->
+            <div class="mb-4">
+                <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
+                <input type="text" class="form-control" id="time_to_complete" placeholder="e.g., 2 hours">
+            </div>
+
+            <!-- Upload file -->
+            <div class="mb-4">
+                <label for="file_upload" class="form-label fw-semibold">File Upload</label>
+                <input type="file" class="form-control" id="file_upload" accept=".pdf">
+                <small class="text-muted">Only accept PDF</small>
+            </div>
+
+            <!-- Enter Description -->
+            <div class="mb-4">
+                <label for="description" class="form-label fw-semibold">Synopsis</label>
+                <textarea class="form-control" id="description" rows="4" placeholder="Enter synopsis"></textarea>
+            </div>
+
+            <!-- Save Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Save</button>
+        </form>
     </div>
-
-</body>
-</html>
+</div>
+@endsection

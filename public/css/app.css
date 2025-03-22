@@ -6,7 +6,8 @@
     align-items: center;
     padding: 1% 5%;
     box-sizing: border-box; 
-    overflow: hidden; 
+    /* I changes this to visible to allow the manage subjects dropdown to be visible */
+    overflow: visible; 
 }
 
 .header-nav {
@@ -275,3 +276,44 @@
     overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;
   }
+
+  /* Style for dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    text-decoration: none;
+    color: #5b5b5b;
+    font-weight: bolder;
+    font-size: 16px; 
+    transition: color 0.3s ease;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 99999;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+

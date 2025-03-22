@@ -2,9 +2,10 @@
     <img src="{{ asset('image/logo_dark.svg') }}" alt="" class="header-logo">
     <div class="header-nav">
         <div class="header-links">
-            <a href="">Home</a>
+            <a href="/">Home</a>
             <a href="">Courses</a>
             <a href="">About Us</a>
+            <a href="/upload">Upload</a>
         </div>
         <div class="user-rectangle">
             <div class="username">Username</div>

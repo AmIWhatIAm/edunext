@@ -14,7 +14,7 @@
                 <h5 class="fw-bold">Subjects</h5>
 
                 <div class="card">
-                    <div class="card-header fw-bold">Subjects</div>
+                    <div class="card-header fw-bold">📚 Subjects</div>
                     <ul class="list-group list-group-flush">
                         <!-- Subject: Mathematics -->
                         <li class="list-group-item">

@@ -291,6 +291,10 @@
     transition: color 0.3s ease;
 }
 
+.dropdown-toggle:hover {
+    color: #007bff;
+}
+
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -305,11 +309,13 @@
     display: block;
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: #5b5b5b;
+    font-weight: bolder;
 }
 
 .dropdown-menu a:hover {
     background-color: #f1f1f1;
+    color: #007bff;
 }
 
 /* Show dropdown on hover */

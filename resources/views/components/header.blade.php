@@ -13,7 +13,7 @@
                 <a href="#" class="dropdown-toggle text-decoration-none">Manage Subjects</a>
                 <div class="dropdown-menu">
                     <a href="/upload">Upload</a>
-                    <a href="#">Edit</a>
+                    <a href="/edit">Edit</a>
                 </div>
             </div>
 

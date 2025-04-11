@@ -52,14 +52,13 @@ Route::get('/index',[EventController::class, 'index'])->name('index');
 // Show edit form
 Route::get('/edit', [TestController::class, 'show'])->name('tests.edit');
 
-// //Update Record
-// Route::put('/tests/{tests}', [TestController::class, 'update'])->name('tests.update');
+//Update Record
+Route::put('/edit/{test}/editForm', [TestController::class, 'update'])->name('tests.update');
 
 // // Del Record
 Route::delete('/edit/{test}', [TestController::class, 'destroy'])->name('tests.destroy');
 
 // Modify subject details here
 Route::get('/edit/{test}/editForm', [TestController::class, 'edit'])->name('tests.edit');
-Route::put('/edit/{test}', [TestController::class, 'update'])->name('tests.update');
 
 

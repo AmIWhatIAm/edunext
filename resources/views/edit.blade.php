@@ -17,6 +17,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Category</th>
+                            <th>Time to Complete</th>
                             <th>File Upload</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -28,6 +29,7 @@
                                 <td>{{ $testItem->id }}</td>
                                 <td>{{ $testItem->name }}</td>
                                 <td>{{ $testItem->category }}</td>
+                                <td>{{ $testItem->time_to_complete }}</td>
                                 <td>{{ $testItem->file_upload }}</td>
                                 <td>{{ $testItem->description }}</td>
                                 <td>

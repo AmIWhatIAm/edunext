@@ -56,27 +56,35 @@ class TestController extends Controller
         return view('editForm', compact('test'));
     }
 
-    // public function update(Request $request, Test $test){
-    //     $validated = $request->validate([
-    //         'name' => 'required | string',
-    //         'category' => 'required | string',
-    //         'time_to_complete' => 'required | string',
-    //         'file_upload' => 'nullable|file|max:2048',
-    //         'description' => 'required | string',        
-    //     ]);
+    public function update(Request $request, Test $test){
+        $validated = $request->validate([
+            'name' => 'string',
+            'category' => 'string',
+            'time_to_complete' => 'string',
+            'file_upload' => 'nullable|file|max:2048',
+            'description' => 'string',        
+        ]);
 
-    //     if ($request->hasFile('file_upload')) {
-    //     $file = $request->file('file_upload'); // Get the uploaded file instance
+        if ($request->hasFile('file_upload')) {
+            // Del the old file if its exist
+            if($test->file_upload){
+                Storage::delete('public/' . $test->file_upload);
+            }
         
-    //     // Store the file and get path
-    //     $path = $file->store('public/uploads');
-    //     $validated['file_upload'] = str_replace('public/', '', $path);
-    // }
+        // Store the file and get path
+        $originalName = $request->file('file_upload')->getClientOriginalName();
 
-    //     $test->update($validate);
+            $request->file('file_upload')->storeAs('uploads', $originalName , 'public');
 
-    //     return redirect()->route('tests.index');
-    // }
+            $validate['file_upload'] = $originalName;
+    }
+
+        $test->update($validated);
+
+        // dd($request->all());
+
+        return redirect('edit');
+    }
 
     public function destroy(Test $test){
         if($test->file_upload){
@@ -85,6 +93,6 @@ class TestController extends Controller
 
         $test->delete();
 
-        return redirect()->route('tests.edit');
+        return redirect('/edit');
     }
 }

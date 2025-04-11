@@ -10,7 +10,7 @@
 
                     <br>
 
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('tests.update', $test->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <!-- Enter Subject Name -->
@@ -40,7 +40,7 @@
                             
                             <!-- Disply the name of the  currently uploaded file -->
                             @if($test->file_upload)
-                                <small class="test-muted">Current file: <a href="{{asset('storage/' .$test->file_upload) }}" target="_blank" download>{{$test->file_upload}}</a></small>
+                                <small class="test-muted">Current file: <a href="{{asset('storage/uploads/' .$test->file_upload) }}" target="_blank" download>{{$test->file_upload}}</a></small>
                             @else
                                 <small class="text-muted">Only accept PDF</small>
                             @endif

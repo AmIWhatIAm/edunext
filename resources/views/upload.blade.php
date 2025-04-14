@@ -90,7 +90,7 @@
 
                         <!-- Enter Description -->
                         <div class="mb-4">
-                            <label for="description" class="form-label fw-semibold">Synopsis</label>
+                            <label for="description" class="form-label fw-semibold">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter synopsis"></textarea>
                         </div>
 

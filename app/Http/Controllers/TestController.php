@@ -76,14 +76,16 @@ class TestController extends Controller
 
             $request->file('file_upload')->storeAs('uploads', $originalName , 'public');
 
-            $validate['file_upload'] = $originalName;
+            $validated['file_upload'] = $originalName;
+
+            $test->update($validated);
+
+            // dd($request->all());
+    
+            return redirect('edit');
     }
 
-        $test->update($validated);
-
-        // dd($request->all());
-
-        return redirect('edit');
+      
     }
 
     public function destroy(Test $test){

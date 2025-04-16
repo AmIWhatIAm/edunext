@@ -3,20 +3,17 @@
 @section('title', 'Home | EduNext')
 
 @section('content')
-    <!-- Hero Section with Upside-Down Semicircle Background -->
     <div class="position-relative" style="height: 600px; overflow: hidden;">
         <div style="
-                                                                                            background-color: #49bbbd;
-                                                                                            width: 200%;
-                                                                                            height: 1500px;
-                                                                                            position: absolute;
-                                                                                            bottom: 0;
-                                                                                            left: -50%;
-                                                                                            border-radius: 0 0 100% 100%;
-                                                                                        ">
+                    background-color: #49bbbd;
+                    width: 200%;
+                    height: 1500px;
+                    position: absolute;
+                    bottom: 0;
+                    left: -50%;
+                    border-radius: 0 0 100% 100%;
+                ">
         </div>
-
-        <!-- Content inside the semicircle -->
         <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between text-white"
             style="position: relative; z-index: 2; height: 100%;">
             <!-- Left Content -->
@@ -28,19 +25,15 @@
                     EduNext offers personalized learning with expert tutors, interactive courses, and quizzes
                 </p>
                 <div class="mt-4">
-                    <a href="#" class="btn btn-light me-3">I'm a Student</a>
-                    <a href="#" class="btn btn-outline-light">I'm a Teacher</a>
+                    <a href="{{ url('/login') }}" class="btn btn-light me-3">I'm a Student</a>
+                    <a href="{{ url('/login') }}" class="btn btn-outline-light">I'm a Teacher</a>
                 </div>
             </div>
-
-            <!-- Right Image -->
             <div>
                 <img src="{{ asset('image/Model.png') }}" alt="EduNext Model" style="max-width: 90%; height: auto;">
             </div>
         </div>
     </div>
-
-    <!-- Stats Section -->
     <div class="py-5 bg-white">
         <div class="container d-flex flex-wrap justify-content-center text-center">
             <div class="p-4" style="min-width: 150px;">
@@ -65,68 +58,61 @@
             </div>
         </div>
     </div>
-    <!-- Why Choose EduNext Section -->
     <div class="py-5 bg-white text-center">
         <div class="container">
-            <!-- Title -->
             <h2 class="mb-3" style="font-weight: 700;">
                 <span style="color: #2c2c6c;"> Why Choose</span> <span style="color: #49bbbd;">EduNext?</span>
             </h2>
-
-            <!-- Description -->
             <p class="mb-5" style="max-width: 700px; margin: 0 auto; color: #4a4a4a;">
                 EduNext is a tuition center platform that empowers lecturers to create interactive courses and quizzes,
                 while students can enroll in subjects, access learning materials, and test their knowledge—all in one place.
             </p>
 
-            <!-- Image Cards -->
             <div class="row justify-content-center g-4">
-                <!-- Teacher Card -->
                 <div class="col-md-5">
-                    <div class="position-relative rounded overflow-hidden" style="cursor: pointer;">
-                        <img src="{{ asset('image/Teachers.png') }}" alt="For Teachers" class="img-fluid w-100"
-                            style="border-radius: 15px;">
+                    <a href="{{ url('/login') }}" style="display: block; text-decoration: none;">
+                        <div class="position-relative rounded overflow-hidden" style="cursor: pointer;">
+                            <img src="{{ asset('image/Teachers.png') }}" alt="For Teachers" class="img-fluid w-100"
+                                style="border-radius: 15px;">
 
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center"
-                            style="backdrop-filter: brightness(0.5); padding: 20px;">
-                            <h5 class="fw-bold">FOR TEACHERS</h5>
-                            <button class="btn btn-outline-light mt-2">Create Your Course Today</button>
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center"
+                                style="backdrop-filter: brightness(0.5); padding: 20px;">
+                                <h5 class="fw-bold">FOR TEACHERS</h5>
+                                <button class="btn btn-outline-light mt-2">Create Your Course Today</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Student Card -->
-                <div class="col-md-5">
-                    <div class="position-relative rounded overflow-hidden" style="cursor: pointer;">
-                        <img src="{{ asset('image/Students.png') }}" alt="For Students" class="img-fluid w-100"
-                            style="border-radius: 15px;">
-
-                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center"
-                            style="backdrop-filter: brightness(0.5); padding: 20px;">
-                            <h5 class="fw-bold">FOR STUDENTS</h5>
-                            <button class="btn" style="background-color: #49bbbd; color: white;">Enroll in a Subject
-                                Now</button>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
+                <div class="col-md-5">
+                    <a href="{{ url('/login') }}" style="display: block; text-decoration: none;">
+                        <div class="position-relative rounded overflow-hidden" style="cursor: pointer;">
+                            <img src="{{ asset('image/Students.png') }}" alt="For Students" class="img-fluid w-100"
+                                style="border-radius: 15px;">
+
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center"
+                                style="backdrop-filter: brightness(0.5); padding: 20px;">
+                                <h5 class="fw-bold">FOR STUDENTS</h5>
+                                <button class="btn" style="background-color: #49bbbd; color: white;">Enroll in a Subject
+                                    Now</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Discover Features Section -->
+
     <div class="py-5 bg-white text-center">
         <div class="container">
-            <!-- Section Title -->
             <h2 class="mb-3">
                 <span style="color: #2c2c6c; font-weight: bold;">Discover</span>
                 <span style="color: #49bbbd; font-weight: bold;">EduNext’s</span>
                 <span style="color: #2c2c6c; font-weight: bold;">Features</span>
             </h2>
-
-            <!-- Subtitle -->
             <p class="mb-5" style="max-width: 700px; margin: 0 auto; color: #4a4a4a;">
                 EduNext offers powerful tools to enhance learning and teaching for students and lecturers alike.
             </p>
-
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-6 mb-4 mb-md-0 position-relative">
                     <img src="{{ asset('image/Subject Enrollment for Students.png') }}" alt="Subject Enrollment"
@@ -172,7 +158,6 @@
                     </p>
                 </div>
 
-                <!-- Image -->
                 <div class="col-md-6" style="margin-left: 100px;">
                     <img src="{{ asset('image/Course Creation for Lecturers.jpg') }}" alt="Course Creation"
                         class="img-fluid rounded" style="width: 70%; height: auto;">
@@ -184,13 +169,10 @@
     <div class="py-5 bg-white text-center">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <!-- Image -->
                 <div class="col-md-6 mb-4 mb-md-0">
                     <img src="{{ asset('image/Interactive Quizzes.png') }}" alt="Interactive Quizzes"
                         class="img-fluid rounded" style="width: 70%; height: auto;">
                 </div>
-
-                <!-- Text Content -->
                 <div class="col-md-5 text-md-start text-center">
                     <h4 class="mb-2">
                         <span style="color: #2c2c6c; font-weight: 600;">Interactive</span><br>
@@ -218,8 +200,6 @@
                         tracking their activity on the platform.
                     </p>
                 </div>
-
-                <!-- Image -->
                 <div class="col-md-6" style="margin-left: 100px;">
                     <img src="{{ asset('image/Profile.png') }}" alt="Profile Management" class="img-fluid rounded"
                         style="width: 70%; height: auto;">
@@ -231,14 +211,11 @@
     <div class="py-5 bg-white text-center">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <!-- Image -->
                 <div class="col-md-6 mb-4 mb-md-0">
                     <img src="{{ asset('image/Session Tracking.jpg') }}" alt="Session Tracking" class="img-fluid rounded"
                         style="width: 70%; height: auto;">
                     >
                 </div>
-
-                <!-- Text Content -->
                 <div class="col-md-5 text-md-start text-center">
                     <h4 class="mb-2">
                         <span style="color: #2c2c6c; font-weight: 600;">Session</span><br>
@@ -271,8 +248,6 @@
                         Are you too? Please give your assessment
                     </p>
                 </div>
-
-                <!-- Image + Review Box -->
                 <div class="col-md-6 position-relative">
                     <img src="{{ asset('image/Review.png') }}" alt="Student Review" class="img-fluid rounded"
                         style="width: 70%; height: auto;">

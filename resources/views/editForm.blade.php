@@ -10,28 +10,28 @@
 
                     <br>
 
-                    <form method="post" action="{{ route('tests.update', $test->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('subject.update', $subject->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
                             <label for="name" class="form-label fw-semibold">Subject Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $test->name }}" placeholder="Enter subject name">
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $subject->name }}" placeholder="Enter subject name">
                         </div>
 
                         <div class="mb-4">
                             <label for="subject_category" class="form-label fw-semibold">Subject Category</label>
                             <select class="form-select" id="category" name="category">
                                 <option selected disabled>Select category</option>
-                                <option value="math" {{ $test->category == 'math' ? 'selected' : ''}}>Mathematics</option>
-                                <option value="science" {{ $test->category == 'math' ? 'selected' : ''}}>Science</option>
-                                <option value="history" {{ $test->category == 'math' ? 'selected' : ''}}>History</option>
+                                <option value="math" {{ $subject->category == 'math' ? 'selected' : ''}}>Mathematics</option>
+                                <option value="science" {{ $subject->category == 'math' ? 'selected' : ''}}>Science</option>
+                                <option value="history" {{ $subject->category == 'math' ? 'selected' : ''}}>History</option>
                             </select>
                         </div>
 
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
-                            <input type="text" class="form-control" id="time_to_complete" value="{{ $test->time_to_complete }}" name="time_to_complete" placeholder="e.g., 2 hours">
+                            <input type="text" class="form-control" id="time_to_complete" value="{{ $subject->time_to_complete }}" name="time_to_complete" placeholder="e.g., 2 hours">
                         </div>
 
                         <div class="mb-4">
@@ -39,8 +39,8 @@
                             <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf">
                             
                             <!-- Disply the name of the  currently uploaded file -->
-                            @if($test->file_upload)
-                                <small class="test-muted">Current file: <a href="{{asset('storage/uploads/' .$test->file_upload) }}" target="_blank" download>{{$test->file_upload}}</a></small>
+                            @if($subject->file_upload)
+                                <small class="subject-muted">Current file: <a href="{{asset('storage/uploads/' .$subject->file_upload) }}" target="_blank" download>{{$subject->file_upload}}</a></small>
                             @else
                                 <small class="text-muted">Only accept PDF</small>
                             @endif
@@ -49,7 +49,7 @@
                         <!-- Enter Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{ $test->description }}</textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{ $subject->description }}</textarea>
                         </div>
 
 

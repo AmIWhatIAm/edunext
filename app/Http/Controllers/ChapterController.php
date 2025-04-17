@@ -18,7 +18,7 @@ class ChapterController extends Controller
         $validate = $request->validate([
             'name' => 'required | string',
             'subject' => 'required | string',
-            'time_to_complete' => 'required | string',
+            'time_to_complete' => 'required | integer',
             'file_upload' => 'nullable|file|max:2048',
             'description' => 'required | string',
 
@@ -59,7 +59,7 @@ class ChapterController extends Controller
         $validated = $request->validate([
             'name' => 'string',
             'subject' => 'string',
-            'time_to_complete' => 'string',
+            'time_to_complete' => 'integer',
             'file_upload' => 'nullable|file|max:2048',
             'description' => 'string',        
         ]);

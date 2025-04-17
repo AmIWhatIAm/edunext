@@ -24,20 +24,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($allTests as $testItem)
+                        @foreach($allSubjects as $subjectItem)
                             <tr>
-                                <td>{{ $testItem->id }}</td>
-                                <td>{{ $testItem->name }}</td>
-                                <td>{{ $testItem->category }}</td>
-                                <td>{{ $testItem->time_to_complete }}</td>
-                                <td>{{ $testItem->file_upload }}</td>
-                                <td>{{ $testItem->description }}</td>
+                                <td>{{ $subjectItem->id }}</td>
+                                <td>{{ $subjectItem->name }}</td>
+                                <td>{{ $subjectItem->category }}</td>
+                                <td>{{ $subjectItem->time_to_complete }}</td>
+                                <td>{{ $subjectItem->file_upload }}</td>
+                                <td>{{ $subjectItem->description }}</td>
                                 <td>
-                                    <a href="{{ route('tests.edit', $testItem->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{{ route('subject.edit', $subjectItem->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 </td>
 
                                 <td>
-                                    <form action="{{ route('tests.destroy', $testItem->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('subject.destroy', $subjectItem->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>

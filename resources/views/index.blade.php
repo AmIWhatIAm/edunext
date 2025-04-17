@@ -27,8 +27,8 @@
                 <td>{{ ucfirst($test->category) }}</td>
                 <td>{{ $test->time_to_complete }} mins</td>
                 <td>
-                    <a href="{{ route('tests.edit', $test) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('tests.destroy', $test) }}" method="POST" class="d-inline">
+                    <a href="{{ route('subject.edit', $test) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ route('subject.destroy', $test) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

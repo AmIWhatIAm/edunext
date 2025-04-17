@@ -36,16 +36,10 @@ Route::get('/edit', function () {
     return view('edit');
 });
 
+
+
 //CRUD
-
-// Diplay all record
-// Route::get('/chapter', [UserController::class, 'index'])->name('chapter.index');
-
-// // Show create form
-// Route::get('/chapter/create', [UserController::class, 'create'])->name('chapter.create');
-
-// // Store new record
-Route::post('/chapter', [ChapterController::class, 'store'])->name('chapter.store');
+Route::post('/upload', [ChapterController::class, 'store'])->name('chapter.store');
 
 // Show edit form
 Route::get('/edit', [ChapterController::class, 'show'])->name('chapters.edit');

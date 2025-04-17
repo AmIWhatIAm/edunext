@@ -7,7 +7,7 @@ use App\Models\Test;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
-class TestController extends Controller
+class UserController extends Controller
 {
     // public function create(){
     //     return view('test.create');

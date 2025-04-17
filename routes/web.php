@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,31 +39,31 @@ Route::get('/edit', function () {
 Route::get('/event/create', [EventController::class, 'create']);
 Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
 
-Route::post('/upload', [TestController::class, 'store'])->name('test.store');
+Route::post('/upload', [UserController::class, 'store'])->name('test.store');
 
 Route::get('/index',[EventController::class, 'index'])->name('index');
 
 //CRUD
 
 // Diplay all record
-// Route::get('/test', [TestController::class, 'index'])->name('test.index');
+// Route::get('/test', [UserController::class, 'index'])->name('test.index');
 
 // // Show create form
-// Route::get('/test/create', [TestController::class, 'create'])->name('test.create');
+// Route::get('/test/create', [UserController::class, 'create'])->name('test.create');
 
 // // Store new record
-// Route::post('/test', [TestController::class, 'store'])->name('test.store');
+// Route::post('/test', [UserController::class, 'store'])->name('test.store');
 
 // Show edit form
-Route::get('/edit', [TestController::class, 'show'])->name('tests.edit');
+Route::get('/edit', [UserController::class, 'show'])->name('tests.edit');
 
 //Update Record
-Route::put('/edit/{test}/editForm', [TestController::class, 'update'])->name('tests.update');
+Route::put('/edit/{test}/editForm', [UserController::class, 'update'])->name('tests.update');
 
 // // Del Record
-Route::delete('/edit/{test}', [TestController::class, 'destroy'])->name('tests.destroy');
+Route::delete('/edit/{test}', [UserController::class, 'destroy'])->name('tests.destroy');
 
 // Modify subject details here
-Route::get('/edit/{test}/editForm', [TestController::class, 'edit'])->name('tests.edit');
+Route::get('/edit/{test}/editForm', [UserController::class, 'edit'])->name('tests.edit');
 
 

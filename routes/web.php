@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +49,8 @@ Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subj
 // Modify subject details here
 Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
 
+Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.main');
+Route::get('/student', [StudentController::class, 'index'])->name('student.main');
 
+Route::get('/subject/{id}/topics', [TeacherController::class, 'getTopics']);
+Route::get('/topic/{id}', [TeacherController::class, 'getTopicContent']);

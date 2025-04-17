@@ -56,19 +56,19 @@
 
                     <br>
 
-                    <form method="post" action="{{route('test.store')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('chapter.store')}}" enctype="multipart/form-data">
                         @csrf
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
-                            <label for="subject_name" class="form-label fw-semibold">Subject Name</label>
+                            <label for="subject_name" class="form-label fw-semibold">Chapter Name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter subject name">
                         </div>
 
                         <!-- Select Subject Category -->
                         <div class="mb-4">
-                            <label for="subject_category" class="form-label fw-semibold">Subject Category</label>
+                            <label for="subject_category" class="form-label fw-semibold">Subjects</label>
                             <select class="form-select" id="category" name="category">
-                                <option selected disabled>Select category</option>
+                                <option selected disabled>Select Subject</option>
                                 <option value="math">Mathematics</option>
                                 <option value="science">Science</option>
                                 <option value="history">History</option>

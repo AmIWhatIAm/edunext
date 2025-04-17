@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -31,34 +30,21 @@ Route::get('/edit', function () {
     return view('edit');
 });
 
-Route::get('/event/create', [EventController::class, 'create']);
-Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
+Route::post('/upload', [UserController::class, 'store'])->name('subject.store');
 
-Route::post('/upload', [UserController::class, 'store'])->name('test.store');
-
-Route::get('/index',[EventController::class, 'index'])->name('index');
 
 //CRUD
 
-// Diplay all record
-// Route::get('/test', [UserController::class, 'index'])->name('test.index');
-
-// // Show create form
-// Route::get('/test/create', [UserController::class, 'create'])->name('test.create');
-
-// // Store new record
-// Route::post('/test', [UserController::class, 'store'])->name('test.store');
-
 // Show edit form
-Route::get('/edit', [UserController::class, 'show'])->name('tests.edit');
+Route::get('/edit', [UserController::class, 'show'])->name('subject.edit');
 
 //Update Record
-Route::put('/edit/{test}/editForm', [UserController::class, 'update'])->name('tests.update');
+Route::put('/edit/{subject}/editForm', [UserController::class, 'update'])->name('subject.update');
 
-// // Del Record
-Route::delete('/edit/{test}', [UserController::class, 'destroy'])->name('tests.destroy');
+// Del Record
+Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subject.destroy');
 
 // Modify subject details here
-Route::get('/edit/{test}/editForm', [UserController::class, 'edit'])->name('tests.edit');
+Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
 
 

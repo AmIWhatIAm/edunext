@@ -56,7 +56,7 @@
 
                     <br>
 
-                    <form method="post" action="{{route('test.store')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('subject.store')}}" enctype="multipart/form-data">
                         @csrf
                         <!-- Enter Subject Name -->
                         <div class="mb-4">

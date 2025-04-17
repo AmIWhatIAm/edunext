@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Test;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    // public function create(){
-    //     return view('test.create');
-    // }
+
 
     public function store(Request $request){
         // dd($request->all());
@@ -32,31 +30,27 @@ class UserController extends Controller
 
             $validate['file_upload'] = $originalName;
 
-        Test::create($validate);
+        Subject::create($validate);
 
         return redirect('/');
         }
     }
 
     // CRUD
-    public function show(Test $test){
+    public function show(Subject $subject){
 
-        $allTests = Test::all();
+        $allSubjects = Subject::all();
         
 
-        return view('edit', compact('test', 'allTests'));
+        return view('edit', compact('subject', 'allSubjects'));
     }
-
-    // public function create(){
-    //     return view('tests.create');
-    // }
     
-    public function edit(Test $test)
+    public function edit(Subject $subject)
     {                
-        return view('editForm', compact('test'));
+        return view('editForm', compact('subject'));
     }
 
-    public function update(Request $request, Test $test){
+    public function update(Request $request, Subject $subject){
         $validated = $request->validate([
             'name' => 'string',
             'category' => 'string',
@@ -67,8 +61,8 @@ class UserController extends Controller
 
         if ($request->hasFile('file_upload')) {
             // Del the old file if its exist
-            if($test->file_upload){
-                Storage::delete('public/' . $test->file_upload);
+            if($subject->file_upload){
+                Storage::delete('public/' . $subject->file_upload);
             }
         
         // Store the file and get path
@@ -78,7 +72,7 @@ class UserController extends Controller
 
             $validated['file_upload'] = $originalName;
 
-            $test->update($validated);
+            $subject->update($validated);
 
             // dd($request->all());
     
@@ -88,12 +82,12 @@ class UserController extends Controller
       
     }
 
-    public function destroy(Test $test){
-        if($test->file_upload){
-            Storage::delete('public/' . $test->file_upload);
+    public function destroy(Subject $subject){
+        if($subject->file_upload){
+            Storage::delete('public/' . $subject->file_upload);
         }
 
-        $test->delete();
+        $subject->delete();
 
         return redirect('/edit');
     }

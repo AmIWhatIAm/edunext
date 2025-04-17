@@ -19,6 +19,7 @@ class CreateTestTable extends Migration
             $table->string('name');
             $table->string('category');
             $table->integer('time_to_complete');
+            $table->integer('desription');
             $table->string('file_upload')->nullable();
             $table->timestamps();
         });

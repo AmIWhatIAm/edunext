@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Models\Lecturer;
+use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+class RegisterController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('guest');
+        $this->middleware('guest:lecturer');
+        $this->middleware('guest:student');
+    }
+    
+    public function showRegistrationForm()
+    {
+        return view('auth.auth', ['formType' => 'register']);
+    }
+    
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:' . ($request->role == 'lecturer' ? 'lecturers' : 'students'),
+            'password' => 'required|string|min:8|confirmed',
+            'gender' => 'required|in:male,female,private',
+            'bio' => 'required|string',
+            'role' => 'required|in:lecturer,student'
+        ]);
+        
+        if ($request->role == 'lecturer') {
+            $user = Lecturer::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'gender' => $request->gender,
+                'bio' => $request->bio,
+                'role' => 'lecturer'
+            ]);
+            
+            Auth::guard('lecturer')->login($user);
+            return redirect('/lecturer/dashboard');
+        } else {
+            $user = Student::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'gender' => $request->gender,
+                'bio' => $request->bio,
+                'role' => 'student'
+            ]);
+            
+            Auth::guard('student')->login($user);
+            return redirect('/student/dashboard');
+        }
+    }
+}

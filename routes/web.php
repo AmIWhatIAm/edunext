@@ -24,7 +24,7 @@ Route::get('/login', function () {
 
 Route::get('/upload', function () {
     return view('upload');
-});
+})->name('upload.page');
 
 Route::get('/edit', function () {
     return view('edit');
@@ -52,4 +52,7 @@ Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('s
 
 
 
-
+Route::post('/auth', [UserController::class,'handle'])->name('auth.handle');
+Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
+Route::get('/teacher/main', [UserController::class, 'teacherMain'])->name('teacher.main');
+Route::get('/subject/{id}', [SubjectController::class, 'getTopics']);

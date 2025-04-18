@@ -20,6 +20,10 @@ class CreateTestTable extends Migration
             $table->string('category');
             $table->string('description');
             $table->integer('time_to_complete');
+<<<<<<< HEAD
+=======
+            $table->text('description');
+>>>>>>> origin/kenyong
             $table->string('file_upload')->nullable();
             $table->timestamps();
         });

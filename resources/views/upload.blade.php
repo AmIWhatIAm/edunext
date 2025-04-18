@@ -11,28 +11,44 @@
                     ← Back
                 </a>
 
-                <h5 class="fw-bold">Subjects</h5>
+                <h5 class="fw-bold">Courses</h5>
 
                 <div class="card">
-                    <div class="card-header fw-bold">📚 Subjects</div>
+                    <div class="card-header fw-bold">📚 Courses</div>
                     <ul class="list-group list-group-flush">
+
+                    @foreach($categories as $category => $subjects)
                         <!-- Subject: Mathematics -->
                         <li class="list-group-item">
-                            <a class="fw-semibold text-decoration-none" data-bs-toggle="collapse" href="#mathSubjects">
-                                Mathematics ▼
-                            </a>
-                            <div class="collapse mt-2" id="mathSubjects">
+                            <a class="fw-semibold text-decoration-none" data-bs-toggle="collapse" href="#category{{ Str::slug($category) }}">
+                                {{$category}} ▼
+                        </a>
+                            <div class="collapse mt-2" id="category{{ Str::slug($category) }}">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Lesson 01: Algebra <span
+                                    @foreach ($subjects as $subject)
+                                        <li class="list-group-item">
+                                            <a class="text-decoration-none" href="#">
+                                                {{ $subject->name }}
+                                            </a>
+                                            <span class="badge bg-secondary float-end">
+                                                {{ $subject->time_to_complete }}
+                                            </span>
+                                        </li>
+                                    <!-- <li class="list-group-item">Lesson 01: Algebra <span
                                             class="badge bg-warning text-dark">30 mins</span></li>
                                     <li class="list-group-item">Lesson 02: Geometry <span class="badge bg-primary">45
-                                            mins</span></li>
+                                            mins
+                                        </span>
+                                    </li> -->
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>
+                        @endforeach
+
 
                         <!-- Subject: Science -->
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item">
                             <a class="fw-semibold text-decoration-none" data-bs-toggle="collapse" href="#scienceSubjects">
                                 Science ▼
                             </a>
@@ -44,7 +60,7 @@
                                             mins</span></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -52,7 +68,7 @@
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-5" style="background-color: #EFF7FF;">
                 <div class="card shadow-lg p-4 bg-white rounded">
-                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Insert new Subject Chapter</h4>
+                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Insert new Course Subject</h4>
 
                     <br>
 
@@ -100,10 +116,11 @@
                         <button type="submit" class="btn text-white w-100 py-2"
                             style="background-color: rgb(73, 197, 182);">
                             Save
-                        </button>
+                        </button>      
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection

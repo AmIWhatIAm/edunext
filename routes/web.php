@@ -32,6 +32,9 @@ Route::get('/edit', function () {
 
 Route::post('/upload', [UserController::class, 'store'])->name('subject.store');
 
+Route::get('/upload', [UserController::class, 'course'])->name('upload');
+
+
 
 //CRUD
 
@@ -46,5 +49,7 @@ Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subj
 
 // Modify subject details here
 Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
+
+
 
 

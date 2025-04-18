@@ -91,4 +91,12 @@ class UserController extends Controller
 
         return redirect('/edit');
     }
+
+    public function course(){
+        $categories = Subject::all()->groupBy('category');
+
+        \Log::info($categories);
+
+        return view('upload', compact('categories'));
+    }
 }

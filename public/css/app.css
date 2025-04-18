@@ -5,8 +5,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 1% 5%;
-    box-sizing: border-box; 
-    overflow: hidden; 
+    box-sizing: border-box;
+    /* need to change this to visible to enable drop-down menu to work */
+    overflow: visible; 
 }
 
 .header-nav {
@@ -799,7 +800,7 @@ video {
   }
 }
 .collapse {
-  visibility: collapse;
+  /* visibility: collapse; */
 }
 .mx-auto {
   margin-left: auto;

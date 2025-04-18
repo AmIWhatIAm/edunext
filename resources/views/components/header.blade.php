@@ -10,10 +10,10 @@
             <a href="">About Us</a>
 
             <div class="dropdown">
-                <a href="#" class="dropdown-toggle text-decoration-none">Manage Subjects</a>
+                <a href="#" class="dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">Manage Subjects</a>
                 <div class="dropdown-menu">
-                    <a href="/upload">Upload</a>
-                    <a href="/edit">Edit</a>
+                    <a class="dropdown-item" href="/upload">Upload</a>
+                    <a class="dropdown-item"href="/edit">Edit</a>
                 </div>
             </div>
 

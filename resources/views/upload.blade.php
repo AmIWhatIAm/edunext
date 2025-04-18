@@ -61,13 +61,13 @@
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
                             <label for="subject_name" class="form-label fw-semibold">Chapter Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter subject name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter chapter name">
                         </div>
 
                         <!-- Select Subject Category -->
                         <div class="mb-4">
                             <label for="subject_category" class="form-label fw-semibold">Subjects</label>
-                            <select class="form-select" id="category" name="category">
+                            <select class="form-select" id="category" name="subject">
                                 <option selected disabled>Select Subject</option>
                                 <option value="math">Mathematics</option>
                                 <option value="science">Science</option>
@@ -78,7 +78,7 @@
                         <!-- Enter Time to Complete -->
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
-                            <input type="text" class="form-control" id="time_to_complete" name="time_to_complete" placeholder="e.g., 2 hours">
+                            <input type="text" class="form-control" id="time_to_complete" name="time_to_complete" placeholder="e.g., 2">
                         </div>
 
                         <!-- Upload File -->

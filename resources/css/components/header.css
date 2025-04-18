@@ -6,7 +6,8 @@
     align-items: center;
     padding: 1% 5%;
     box-sizing: border-box; 
-    overflow: hidden; 
+    /* need to change this to visible to enable drop-down menu to work */
+    overflow: visible; 
 }
 
 .header-nav {

@@ -41,8 +41,8 @@
             document.querySelectorAll('.topic-item').forEach(topic => {
                 topic.addEventListener('click', async () => {
                     let topicId = topic.getAttribute('data-id');
-                    let res = await fetch('/topic/${topicId}');
-                    let data = aawait res.json();
+                    let res = await fetch(`/topic/${topicId}`);
+                    let data = await res.json();
                     document.getElementById('topic-content').innerHTML = `<h5>${data.title}</h5><p>${data.content}</p>`;
                 });
             });

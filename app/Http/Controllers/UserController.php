@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -90,5 +93,62 @@ class UserController extends Controller
         $subject->delete();
 
         return redirect('/edit');
+    }
+
+    public function handle(Request $request)
+    {
+        if ($request->form_type === 'signup') {
+            $user = new User();
+            $user->name = $request->username;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->role = $request->role;
+            $user->save();
+
+            Auth::login($user);
+
+            return $this->redirectToRolePage($user->role);
+        } else {
+            $credentials = [
+                'name' => $request->username,
+                'password' => $request->password
+            ];
+
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                return $this->redirectToRolePage($user->role);
+            } else {
+                return redirect()->back()->withErrors(['Invalid credentials']);
+            }
+        }
+    }
+
+    private function redirectToRolePage($role)
+    {
+        if ($role === 'student') {
+            return redirect()->route('student.main');
+        } elseif ($role === 'teacher') {
+            return redirect()->route('teacher.main');
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function getTopics($id)
+    {
+        $topics = DB::table('topics')->where('subject_id', $id)->get();
+        return response()->json($topics);
+    }
+
+    public function teacherMain()
+    {
+        $subjects = Subject::all();
+        return view('teacher.main', compact('subjects'));
+    }
+
+    public function studentMain()
+    {
+        $subjects = Subject::all();
+        return view('student.main', compact('subjects'));
     }
 }

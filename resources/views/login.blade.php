@@ -26,8 +26,11 @@
                     <div onclick="switchForm('signup')">Sign Up</div>
                 </div>
             </div>
-            <form action="" class="form" id="loginForm">
-                <!-- Login form fields -->
+            <form method="POST" action"{{ route('auth.handle') }}" class="form" id="loginForm">
+                @call_user_func
+                <input type="hidden" name="form_type" value="login">
+                
+            <!-- Login form fields -->
                 <div>
                     <label for="username">Username</label>
                     <input type="text" id="username" placeholder="Enter your Username">
@@ -42,19 +45,21 @@
                 </div>
                 <button type="submit">Login</button>
             </form>
-            <form action="" class="form" id="signupForm" style="display: none;">
+            <form method="POST" action="{{route('auth.handle')}}" class="form" id="signupForm" style="display: none;">
+                @csrf
+                <input type="hidden" name="form_type" value="signup">
                 <!-- Signup form fields -->
                 <div>
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" placeholder="Enter your E-mail">
+                    <input type="email" id="email" name="email" placeholder="Enter your E-mail">
                 </div>
                 <div>
                     <label for="newUsername">Username</label>
-                    <input type="text" id="newUsername" placeholder="Enter your Username">
+                    <input type="text" id="newUsername" name="username" placeholder="Enter your Username">
                 </div>
                 <div>
                     <label for="newPassword">Password</label>
-                    <input type="password" id="newPassword" placeholder="Enter your Password">
+                    <input type="password" id="newPassword" name="password" placeholder="Enter your Password">
                 </div>
                 <div class="mt-4">
                     <label for="role" class="block text-sm font-medium text-gray-700">Register As:</label>

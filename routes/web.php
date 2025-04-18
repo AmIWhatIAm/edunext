@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +24,7 @@ Route::get('/login', function () {
 
 Route::get('/upload', function () {
     return view('upload');
-});
+})->name('upload.page');
 
 Route::get('/edit', function () {
     return view('edit');
@@ -49,8 +47,7 @@ Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subj
 // Modify subject details here
 Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
 
-Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.main');
-Route::get('/student', [StudentController::class, 'index'])->name('student.main');
-
-Route::get('/subject/{id}/topics', [TeacherController::class, 'getTopics']);
-Route::get('/topic/{id}', [TeacherController::class, 'getTopicContent']);
+Route::post('/auth', [UserController::class,'handle'])->name('auth.handle');
+Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
+Route::get('/teacher/main', [UserController::class, 'teacherMain'])->name('teacher.main');
+Route::get('/subject/{id}', [SubjectController::class, 'getTopics']);

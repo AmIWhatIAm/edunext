@@ -6,7 +6,7 @@
         <div class="col-md-3">
             <h4>Subjects</h4>
             <ul class="list-group">
-                @foreach($subjects)
+                @foreach($subjects as $subject)
                 <li class="list-group-item subject-item" data-id="{{$subject->id}}">
                     {{ $subject->name}}
                 </li>
@@ -37,7 +37,7 @@
 
             document.getElementById('topics-area').innerHTML = topicHTML;
 
-            document.querySelectorAll('.topic-item').forEach(topic => {{
+            document.querySelectorAll('.topic-item').forEach(topic => {
                 topic.addEventListener('click', async () => {
                     let topicId = topic.getAttribute('data-id');
                     let res = await fetch(`/topic/${topicId}`);
@@ -48,4 +48,4 @@
         });
     });
     </script>
-    @endsection
+  @endsection

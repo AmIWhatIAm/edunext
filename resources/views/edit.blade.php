@@ -15,10 +15,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Category</th>
+                            <th>Topic Name</th>
+                            <th>Subjects</th>
                             <th>Time to Complete</th>
-                            <th>File Upload</th>
+                            <th>Topic File</th>
                             <th>Description</th>
                             <th>Actions</th>
                         </tr>

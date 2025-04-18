@@ -11,10 +11,8 @@
                     ← Back
                 </a>
 
-                <h5 class="fw-bold">Courses</h5>
-
                 <div class="card">
-                    <div class="card-header fw-bold">📚 Courses</div>
+                    <div class="card-header fw-bold">📚 Subjects</div>
                     <ul class="list-group list-group-flush">
 
                     @foreach($categories as $category => $subjects)
@@ -30,37 +28,12 @@
                                             <a class="text-decoration-none" href="#">
                                                 {{ $subject->name }}
                                             </a>
-                                            <span class="badge bg-secondary float-end">
-                                                {{ $subject->time_to_complete }}
-                                            </span>
                                         </li>
-                                    <!-- <li class="list-group-item">Lesson 01: Algebra <span
-                                            class="badge bg-warning text-dark">30 mins</span></li>
-                                    <li class="list-group-item">Lesson 02: Geometry <span class="badge bg-primary">45
-                                            mins
-                                        </span>
-                                    </li> -->
                                     @endforeach
                                 </ul>
                             </div>
                         </li>
                         @endforeach
-
-
-                        <!-- Subject: Science -->
-                        <!-- <li class="list-group-item">
-                            <a class="fw-semibold text-decoration-none" data-bs-toggle="collapse" href="#scienceSubjects">
-                                Science ▼
-                            </a>
-                            <div class="collapse mt-2" id="scienceSubjects">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Lesson 01: Biology <span class="badge bg-danger">40
-                                            mins</span></li>
-                                    <li class="list-group-item">Lesson 02: Chemistry <span class="badge bg-success">50
-                                            mins</span></li>
-                                </ul>
-                            </div>
-                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -68,7 +41,7 @@
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-5" style="background-color: #EFF7FF;">
                 <div class="card shadow-lg p-4 bg-white rounded">
-                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Insert new Course Subject</h4>
+                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Insert new Topic</h4>
 
                     <br>
 
@@ -76,15 +49,15 @@
                         @csrf
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
-                            <label for="subject_name" class="form-label fw-semibold">Subject Name</label>
+                            <label for="subject_name" class="form-label fw-semibold">Topic Name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter subject name">
                         </div>
 
                         <!-- Select Subject Category -->
                         <div class="mb-4">
-                            <label for="subject_category" class="form-label fw-semibold">Subject Category</label>
+                            <label for="subject_category" class="form-label fw-semibold">Subject </label>
                             <select class="form-select" id="category" name="category">
-                                <option selected disabled>Select category</option>
+                                <option selected disabled>Select Subject </option>
                                 <option value="math">Mathematics</option>
                                 <option value="science">Science</option>
                                 <option value="history">History</option>

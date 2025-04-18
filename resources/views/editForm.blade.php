@@ -6,7 +6,7 @@
             <!-- Main Content -->
             <div class="col-md-12 p-5" style="background-color: #EFF7FF;">
                 <div class="card shadow-lg p-4 bg-white rounded">
-                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Edit Subject Details</h4>
+                    <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Edit Topic Details</h4>
 
                     <br>
 
@@ -15,12 +15,12 @@
                         @method('PUT')
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
-                            <label for="name" class="form-label fw-semibold">Subject Name</label>
+                            <label for="name" class="form-label fw-semibold">Topic Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="{{ $subject->name }}" placeholder="Enter subject name">
                         </div>
 
                         <div class="mb-4">
-                            <label for="subject_category" class="form-label fw-semibold">Subject Category</label>
+                            <label for="subject_category" class="form-label fw-semibold">Subject</label>
                             <select class="form-select" id="category" name="category">
                                 <option selected disabled>Select category</option>
                                 <option value="math" {{ $subject->category == 'math' ? 'selected' : ''}}>Mathematics</option>

@@ -56,6 +56,13 @@
                     <label for="newPassword">Password</label>
                     <input type="password" id="newPassword" placeholder="Enter your Password">
                 </div>
+                <div class="mt-4">
+                    <label for="role" class="block text-sm font-medium text-gray-700">Register As:</label>
+                    <select name="role" id="role" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
                 <button type="submit">Sign Up</button>
             </form>
         </div>

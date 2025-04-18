@@ -1,3 +1,5 @@
+<?
+
 namespace App\Http\Controllers;
 
 use Illumminate\Http\Request;

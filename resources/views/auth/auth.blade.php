@@ -23,7 +23,7 @@
                 <p class="welcome">Welcome back!</p>
                 <div class="option">
                     <div class="activated" onclick="switchForm('login')">Login</div>
-                    <div onclick="switchForm('signup')">Sign Up</div>
+                    <div onclick="switchForm('register')">Sign Up</div>
                 </div>
             </div>
             <form method="POST" action"{{ route('auth.handle') }}" class="form" id="loginForm">
@@ -31,6 +31,12 @@
                 <input type="hidden" name="form_type" value="login">
                 
             <!-- Login form fields -->
+                <div>
+                    <input type="radio" id="student" name="role" value="student" checked>
+                    <label for="student">Student</label>
+                    <input type="radio" id="lecturer" name="role" value="lecturer">
+                    <label for="lecturer">Lecturer</label>
+                </div>
                 <div>
                     <label for="username">Username</label>
                     <input type="text" id="username" placeholder="Enter your Username">
@@ -76,14 +82,14 @@
     <script>
         function switchForm(formType) {
             const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
+            const registerForm = document.getElementById('registerForm');
             const options = document.querySelectorAll('.option > div');
             const welcome = document.querySelector('.welcome');
             const image_used = document.getElementById('featured-pic');
 
             if (formType === 'login') {
                 loginForm.style.display = 'flex';
-                signupForm.style.display = 'none';
+                registerForm.style.display = 'none';
                 options[0].classList.add('activated');
                 options[1].classList.remove('activated');
                 image_used.classList.add('featured-pic-1');
@@ -91,7 +97,7 @@
                 welcome.textContent = 'Welcome back!'
             } else {
                 loginForm.style.display = 'none';
-                signupForm.style.display = 'flex';
+                registerForm.style.display = 'flex';
                 options[0].classList.remove('activated');
                 options[1].classList.add('activated');
                 image_used.classList.add('featured-pic-2');
@@ -99,6 +105,11 @@
                 welcome.textContent = 'Welcome!'
             }
         }
+
+        // Initialize the correct form based on the route
+        document.addEventListener('DOMContentLoaded', function() {
+            switchForm('{{ $formType ?? 'login' }}');
+        });
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

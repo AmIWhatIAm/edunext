@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -18,9 +19,14 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Authentication Routes
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+// Registration Routes
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
 Route::get('/upload', function () {
     return view('upload');
@@ -30,25 +36,25 @@ Route::get('/edit', function () {
     return view('edit');
 });
 
-Route::post('/upload', [UserController::class, 'store'])->name('subject.store');
 
 Route::get('/upload', [UserController::class, 'course'])->name('upload');
 
 
 
 //CRUD
+Route::post('/upload', [ChapterController::class, 'store'])->name('chapter.store');
 
 // Show edit form
-Route::get('/edit', [UserController::class, 'show'])->name('subject.edit');
+Route::get('/edit', [ChapterController::class, 'show'])->name('chapters.edit');
 
 //Update Record
-Route::put('/edit/{subject}/editForm', [UserController::class, 'update'])->name('subject.update');
+Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapters.update');
 
-// Del Record
-Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subject.destroy');
+// // Del Record
+Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapters.destroy');
 
-// Modify subject details here
-Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
+// Modify chapter details here
+Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapters.edit');
 
 
 

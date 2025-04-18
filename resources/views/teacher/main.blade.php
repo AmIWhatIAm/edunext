@@ -7,8 +7,8 @@
             <h4>Subjects</h4>
             <ul class="list-group">
                 @foreach($subjects as $subject)
-                <li class="list-group-item subject-item" data-id="{{$subject->id}}">
-                    {{$subject->name}}
+                <li class="list-group-item subject-item" data-id="{{ $subject->id }}">
+                    {{ $subject->name }}
                 </li>
                 @endforeach
             </ul>
@@ -23,11 +23,10 @@
 </div>
 
 <script>
-    const subjectItems = document.querySelectorAll('.subject-item');
-    subjectItems.forEach(item => {
+    document.querySelectorAll('.subject-item').forEach(item => {
         item.addEventListener('click', async () => {
             let id = item.getAttribute('data-id');
-            let res = await fetch(`/subject/${id}`)
+            let res = await fetch(`/subject/${id}`);
             let topics = await res.json();
 
             let topicHTML = `<ul class="list-group mt-3">`;

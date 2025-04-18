@@ -22,11 +22,10 @@
 </div>
 
 <script>
-    const subjectItems = document.querySelectorAll('.subject-item');
-    subjectItems.forEach(item => {
+    document.querySelectorAll('.subject-item').forEach(item => {
         item.addEventListener('click', async () => {
             let id = item.getAttribute('data-id');
-            let res = await fetch(`/subject/${id}/topics`);
+            let res = await fetch(`/subject/${id}`);
             let topics = await res.json();
 
             let topicHTML = `<ul class="list-group mt-3">`;
@@ -47,5 +46,6 @@
             });
         });
     });
-    </script>
+</script>
+
   @endsection

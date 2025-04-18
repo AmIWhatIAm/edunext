@@ -35,7 +35,7 @@ class UserController extends Controller
 
         Subject::create($validate);
 
-        return redirect('/');
+        return redirect()->route('teacher.main');
         }
     }
 

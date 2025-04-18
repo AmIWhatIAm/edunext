@@ -15,7 +15,8 @@ class CreateUserActivitiesTable extends Migration
     {
         Schema::create('user_activities', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->enum('last_activity_type', ['quiz', 'chapter_view']);
             $table->string('activity_id')->nullable();
             $table->boolean('is_active');

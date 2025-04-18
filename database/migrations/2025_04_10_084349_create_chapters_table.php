@@ -15,9 +15,9 @@ class CreateChaptersTable extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->foreign('lecturer_id')->constrained('users');
+            $table->unsignedBigInteger('lecturer_id');
+            $table->foreign('lecturer_id')->references('id')->on('users');
             $table->string('name');
-            $table->text('description');
             $table->string('subject');
             $table->integer('time_to_complete');
             $table->string('file_upload')->nullable();

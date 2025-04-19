@@ -54,3 +54,12 @@ Route::middleware(['auth', 'role:lecturer'])->group(function () {
     // // Del Record
     Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
 });
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+
+
+

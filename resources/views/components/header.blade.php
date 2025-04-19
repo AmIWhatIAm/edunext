@@ -14,7 +14,7 @@
                     aria-expanded="false">Manage Subjects</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ route('chapter.create') }}">Upload</a>
-                    <a class="dropdown-item"href="/edit">Edit</a>
+                    <a class="dropdown-item" href="/edit">Edit</a>
                 </div>
             </div>
 
@@ -31,9 +31,11 @@
                         @endif
                     </div>
                 </div>
-
                 <ul class="dropdown-menu dropdown-menu-end">
                     @if(Auth::guard('student')->check() || Auth::guard('lecturer')->check())
+                        <!-- Add View Profile link -->
+                        <li><a class="dropdown-item" href="{{ route('profile') }}">View Profile</a></li>
+            
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -45,7 +47,7 @@
                         <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
                     @endif
                 </ul>
-            </div>
+            </div>            
         </div>
     </div>
 </header>

@@ -16,7 +16,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Category</th>
+                            <th>Subject</th>
                             <th>Time to Complete</th>
                             <th>File Upload</th>
                             <th>Description</th>
@@ -26,14 +26,15 @@
                     <tbody>
                         @foreach($allChapters as $chapterItem)
                             <tr>
+                                <td>{{ $chapterItem->lecturer_id}}</td>
                                 <td>{{ $chapterItem->id }}</td>
                                 <td>{{ $chapterItem->name }}</td>
-                                <td>{{ $chapterItem->category }}</td>
+                                <td>{{ $chapterItem->subject }}</td>
                                 <td>{{ $chapterItem->time_to_complete }}</td>
-                                <td>{{ $chapterItem->file_upload }}</td>
+                                <td>{{ $chapterItem->file_upload ?? '-' }}</td>
                                 <td>{{ $chapterItem->description }}</td>
                                 <td>
-                                    <a href="{{ route('chapter.edit', $chapterItem->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="{{ route('chapter.editForm', $chapterItem->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 </td>
 
                                 <td>

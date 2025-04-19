@@ -46,7 +46,7 @@ Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     // Show edit chapter form
     Route::get('/edit', [ChapterController::class, 'show'])->name('chapter.edit');
     // Modify chapter details here
-    Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapter.edit');
+    Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapter.editForm');
     //Update chpater
     Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapter.update');
     // Del Record

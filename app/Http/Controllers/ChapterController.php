@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chapter;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ class ChapterController extends Controller
 {
     public function create()
     {
+        $lecturerId = Auth::guard('lecturer')->id();
+
         $subjectList = [
             'Mathematics',
             'Physics',
@@ -27,7 +30,9 @@ class ChapterController extends Controller
         // Get chapters grouped by subject
         $subjects = [];
         foreach ($subjectList as $subject) {
-            $subjects[$subject] = Chapter::where('subject', $subject)->get();
+            $subjects[$subject] = Chapter::where('subject', $subject)
+                                         ->where('lecturer_id', $lecturerId)
+                                         ->get();
         }
 
         return view('upload', compact('subjects'));
@@ -46,7 +51,7 @@ class ChapterController extends Controller
         ]);
         
         $data['lecturer_id'] = Auth::guard('lecturer')->id();
-        
+
         if ($request->hasFile('file_upload')) {
             $originalName = $request->file('file_upload')->getClientOriginalName();
 
@@ -64,49 +69,46 @@ class ChapterController extends Controller
     // CRUD
     public function show(Chapter $chapter)
     {
-
-        $allChapters = Chapter::all();
-
-
+        $allChapters = Chapter::where('lecturer_id', Auth::guard('lecturer')->id())->get();
         return view('edit', compact('chapter', 'allChapters'));
     }
 
     public function edit(Chapter $chapter)
     {
+        $this->authorize('update', $chapter);
         return view('editForm', compact('chapter'));
     }
 
     public function update(Request $request, Chapter $chapter)
     {
-        $validated = $request->validate([
-            'name' => 'string',
-            'subject' => 'string',
+        $this->authorize('update', $chapter);
+        $data = $request->validate([
+            'name'             => 'string',
+            'subject'          => 'string',
             'time_to_complete' => 'integer',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'string',
+            'file_upload'      => 'nullable|file|max:2048',
+            'description'      => 'string',
         ]);
 
         if ($request->hasFile('file_upload')) {
-            // Del the old file if its exist
             if ($chapter->file_upload) {
-                Storage::delete('public/' . $chapter->file_upload);
+                Storage::delete('public/'.$chapter->file_upload);
             }
-
-            // Store the file and get path
-            $originalName = $request->file('file_upload')->getClientOriginalName();
-
-            $request->file('file_upload')->storeAs('uploads', $originalName, 'public');
-
-            $validated['file_upload'] = $originalName;
-
-            $chapter->update($validated);
-
-            return redirect('edit');
+            $orig = $request->file('file_upload')->getClientOriginalName();
+            $request->file('file_upload')->storeAs('uploads', $orig, 'public');
+            $data['file_upload'] = $orig;
         }
+
+        $chapter->update($data);
+
+        return redirect()
+            ->route('chapter.edit', $chapter)
+            ->with('success','Chapter updated');
     }
 
     public function destroy(Chapter $chapter)
     {
+        $this->authorize('delete', $chapter);
         if ($chapter->file_upload) {
             Storage::delete('public/' . $chapter->file_upload);
         }

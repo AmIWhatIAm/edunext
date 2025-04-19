@@ -12,15 +12,22 @@ class UserController extends Controller
 
 
     public function store(Request $request){
-        // dd($request->all());
-
         $validate = $request->validate([
-            'name' => 'required | string',
-            'category' => 'required | string',
-            'time_to_complete' => 'required | string',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'required | string',
-
+            'name' => 'required | max:255',            
+            'category' => 'required | string | max:255',
+            'time_to_complete' => 'required | integer | max:255',
+            'file_upload' => 'required | file | max:2048 | mimes:pdf',
+            // Needed to use the below function to validate the description field as the regex was not working as expected.
+            'description' => [
+                'required',
+                'string',
+                'max:65535',
+                function ($attribute, $value, $fail) {
+                    if (is_numeric($value)) {
+                        $fail('The ' . $attribute . ' must not be a number.');
+                    }
+                },
+            ],
         ]);
 
         if($request->hasFile('file_upload')){
@@ -32,7 +39,7 @@ class UserController extends Controller
 
         Subject::create($validate);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Subject Created Successfully!');
         }
     }
 
@@ -52,11 +59,21 @@ class UserController extends Controller
 
     public function update(Request $request, Subject $subject){
         $validated = $request->validate([
-            'name' => 'string',
-            'category' => 'string',
-            'time_to_complete' => 'string',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'string',        
+            'name' => 'required | max:255',            
+            'category' => 'required | string | max:255',
+            'time_to_complete' => 'required | integer | max:255',
+            'file_upload' => 'required | file | max:2048 | mimes:pdf',
+            // Needed to use the below function to validate the description field as the regex was not working as expected.
+            'description' => [
+                'required',
+                'string',
+                'max:65535',
+                function ($attribute, $value, $fail) {
+                    if (is_numeric($value)) {
+                        $fail('The ' . $attribute . ' must not be a number.');
+                    }
+                },
+            ],       
         ]);
 
         if ($request->hasFile('file_upload')) {

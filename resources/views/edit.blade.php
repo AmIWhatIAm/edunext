@@ -16,10 +16,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Topic Name</th>
-                            <th>Subjects</th>
+                            <th>Subject</th>
                             <th>Time to Complete</th>
                             <th>Topic File</th>
-                            <th>Description</th>
+                            <th>Topic Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

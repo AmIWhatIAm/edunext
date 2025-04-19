@@ -10,7 +10,7 @@
             <a href="">About Us</a>
 
             <div class="dropdown">
-                <a href="#" class="dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">Manage Courses</a>
+                <a href="#" class="dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">Manage Subjects</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/upload">Upload</a>
                     <a class="dropdown-item"href="/edit">Edit</a>

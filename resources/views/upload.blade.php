@@ -50,37 +50,52 @@
                         <!-- Enter Subject Name -->
                         <div class="mb-4">
                             <label for="subject_name" class="form-label fw-semibold">Topic Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter subject name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Topic Name">
+                            @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Select Subject Category -->
                         <div class="mb-4">
                             <label for="subject_category" class="form-label fw-semibold">Subject </label>
                             <select class="form-select" id="category" name="category">
-                                <option selected disabled>Select Subject </option>
-                                <option value="math">Mathematics</option>
-                                <option value="science">Science</option>
-                                <option value="history">History</option>
+                                <option selected disabled>Select Subject</option>
+                                <option value="Mathematic">Mathematic</option>
+                                <option value="Science">Science</option>
+                                <option value="History">History</option>
                             </select>
+                            @error('category')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Enter Time to Complete -->
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
                             <input type="text" class="form-control" id="time_to_complete" name="time_to_complete" placeholder="e.g., 2 hours">
+                            @error('time_to_complete')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Upload File -->
                         <div class="mb-4">
                             <label for="file_upload" class="form-label fw-semibold">File Upload</label>
-                            <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf">
+                            <input type="file" class="form-control" id="file_upload" name="file_upload">
                             <small class="text-muted">Only accept PDF</small>
+                            @error('file_upload')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Enter Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter synopsis"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Topic Description"></textarea>
+                            @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <br>

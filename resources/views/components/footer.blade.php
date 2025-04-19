@@ -11,11 +11,9 @@
         <p class="address">Lot 151. EduNext, Jalan Sungai Long, Bandar Sungai Long Cheras 43000, Kajang Selangor.</p>
     </div>
     <div class="footer-item nav">
-        <a href="">Home</a>
+        <a href="#">Home</a>
         <div class="vertical-line"></div>
-        <a href="">Courses</a>
-        <div class="vertical-line"></div>
-        <a href="">About Us</a>
+        <a href="#about-us">About Us</a>
     </div>
     <div class="horizontal-line"></div>
     <p class="copyright">&copy; 2025 EduNext Education Group</p>

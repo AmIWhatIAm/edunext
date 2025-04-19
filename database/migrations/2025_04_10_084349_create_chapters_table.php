@@ -23,7 +23,6 @@ class CreateChaptersTable extends Migration
                 'Physics', 
                 'Chemistry', 
                 'Biology',
-                'Computer Science',
                 'History',
                 'Geography',
                 'Literature',

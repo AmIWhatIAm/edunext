@@ -9,6 +9,7 @@ class Chapter extends Model
 {
     use HasFactory;
 
+    // refer to schema enum
     public static function subjects()
     {
         return [
@@ -16,7 +17,6 @@ class Chapter extends Model
             'Physics',
             'Chemistry',
             'Biology',
-            'Computer Science',
             'History',
             'Geography',
             'Literature',

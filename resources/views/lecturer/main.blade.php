@@ -2,16 +2,16 @@
 
 @section('content')
     @php use Illuminate\Support\Str; @endphp
-
+    
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <h4>Subjects</h4>
                 <ul class="list-group">
-                    @foreach ($subjectList as $subject)
+                    @foreach ($subjectList as $sub)
                         <li class="list-group-item">
-                            <a href="{{ route('lecturer.main', Str::slug(strtolower($subject))) }}">
-                                {{ $subject }}
+                            <a class="text-decoration-none" href="{{ route('lecturer.main', Str::slug(strtolower($sub))) }}">
+                                {{ $sub }}
                             </a>
                         </li>
                     @endforeach
@@ -23,7 +23,7 @@
 
             <div class="col-md-9">
                 @if ($subject)
-                    <h3>Chapters for {{ ucfirst($subject) }}</h3>
+                    <h3>Chapters for {{ ucwords($subject) }}</h3>
                     @if ($chapters->isEmpty())
                         <p>No chapters available for this subject.</p>
                     @else

@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="py-5 bg-white text-center">
+    <div class="py-5 bg-white text-center" id="about-us">
         <div class="container">
             <h2 class="mb-3" style="font-weight: 700;">
                 <span style="color: #2c2c6c;"> Why Choose</span> <span style="color: #49bbbd;">EduNext?</span>
@@ -77,7 +77,7 @@
 
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center"
                                 style="backdrop-filter: brightness(0.5); padding: 20px;">
-                                <h5 class="fw-bold">FOR TEACHERS</h5>
+                                <h5 class="fw-bold">FOR LECTURERS</h5>
                                 <button class="btn btn-outline-light mt-2">Create Your Course Today</button>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                         <span style="color: #2c2c6c; font-weight: 600;">for Students</span>
                     </h4>
                     <p style="color: #4a4a4a;">
-                        Teachers don’t get lost in the grid view and have a dedicated Podium space.
+                        Teachers don't get lost in the grid view and have a dedicated Podium space.
                     </p>
                 </div>
             </div>
@@ -201,9 +201,8 @@
                     </p>
                 </div>
                 <div class="col-md-6" style="margin-left: 100px;">
-                    <img src="{{ asset('image/Profile.png') }}" alt="Profile Management" class="img-fluid rounded"
+                    <img src="{{ asset('image/ProfileImage.png') }}" alt="Profile Management" class="img-fluid rounded"
                         style="width: 70%; height: auto;">
-                    >
                 </div>
             </div>
         </div>
@@ -214,7 +213,6 @@
                 <div class="col-md-6 mb-4 mb-md-0">
                     <img src="{{ asset('image/Session Tracking.jpg') }}" alt="Session Tracking" class="img-fluid rounded"
                         style="width: 70%; height: auto;">
-                    >
                 </div>
                 <div class="col-md-5 text-md-start text-center">
                     <h4 class="mb-2">
@@ -251,7 +249,6 @@
                 <div class="col-md-6 position-relative">
                     <img src="{{ asset('image/Review.png') }}" alt="Student Review" class="img-fluid rounded"
                         style="width: 70%; height: auto;">
-                    >
                 </div>
             </div>
         </div>

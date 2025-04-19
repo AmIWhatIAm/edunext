@@ -5,6 +5,8 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Str;
+use App\Models\Chapter;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,13 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 // Lecturer routes
 Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
+    $slugs = implode('|', array_map(
+        fn($s)=> Str::slug(strtolower($s)),
+        Chapter::subjects()
+    ));
+
     Route::get('lecturer/main/{subject?}', [UserController::class, 'lecturerMain'])
+        ->where('subject', "($slugs)?")
         ->name('lecturer.main');
     // Show upload chapter form
     Route::get('/upload', [ChapterController::class, 'create'])->name('chapter.create');
@@ -68,11 +76,17 @@ Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.
 
 // student routes
 Route::middleware(['auth:student', 'role:student'])->group(function () {
+    $slugs = implode('|', array_map(
+        fn($s)=> Str::slug(strtolower($s)),
+        Chapter::subjects()
+    ));
+
     Route::get('student/main/{subject?}', [UserController::class, 'studentMain'])
+        ->where('subject', "($slugs)?")
         ->name('student.main');
 });
 
-// Route::fallback(function () {
-//     return redirect()->route('home')
-//                      ->with('error', 'The page you requested does not exist.');
-// });
+Route::fallback(function () {
+    return redirect()->route('home')
+                     ->with('error', 'The page you requested does not exist.');
+});

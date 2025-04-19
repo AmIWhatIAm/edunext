@@ -21,7 +21,6 @@ class ChapterSeeder extends Seeder
                     'Physics',
                     'Chemistry',
                     'Biology',
-                    'Computer Science',
                     'History',
                     'Geography',
                     'Literature',

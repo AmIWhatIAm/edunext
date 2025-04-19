@@ -17,23 +17,23 @@ class RegisterController extends Controller
         $this->middleware('guest:lecturer');
         $this->middleware('guest:student');
     }
-    
+
     public function showRegistrationForm()
     {
         return view('auth.auth', ['formType' => 'register']);
     }
-    
+
     public function register(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:' . ($request->role == 'lecturer' ? 'lecturers' : 'students'),
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
             'gender' => 'required|in:male,female,private',
-            'bio' => 'required|string',
+            'bio' => 'string',
             'role' => 'required|in:lecturer,student'
         ]);
-        
+
         if ($request->role == 'lecturer') {
             $user = Lecturer::create([
                 'name' => $request->name,
@@ -43,9 +43,9 @@ class RegisterController extends Controller
                 'bio' => $request->bio,
                 'role' => 'lecturer'
             ]);
-            
+
             Auth::guard('lecturer')->login($user);
-            return redirect('/lecturer/dashboard');
+            return redirect('lecturer.main');
         } else {
             $user = Student::create([
                 'name' => $request->name,
@@ -55,9 +55,9 @@ class RegisterController extends Controller
                 'bio' => $request->bio,
                 'role' => 'student'
             ]);
-            
+
             Auth::guard('student')->login($user);
-            return redirect('/student/dashboard');
+            return redirect('student.main');
         }
     }
 }

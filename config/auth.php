@@ -80,12 +80,12 @@ return [
         //     'table' => 'users',
         // ],
 
-        'lecturer' => [
+        'lecturers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Lecturer::class,
         ],
         
-        'student' => [
+        'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
         ]

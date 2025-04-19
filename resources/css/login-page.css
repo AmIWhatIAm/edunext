@@ -152,3 +152,29 @@
     color: white;
     font-size: medium;
 }
+
+.form > div.role-choice, .form > div.gender-choice {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.role-choice > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+}
+
+.role-choice label {
+    cursor: pointer;
+}
+
+.role-choice input[type="radio"] {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}

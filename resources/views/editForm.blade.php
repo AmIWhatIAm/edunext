@@ -20,8 +20,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="chapter_category" class="form-label fw-semibold">Subject</label>
-                            <select class="form-select" id="category" name="subject">
+                            <label for="chapter_subject" class="form-label fw-semibold">Subject</label>
+                            <select class="form-select" id="subject" name="subject">
                                 <option selected disabled>Select subject</option>
                                 <option value="math" {{ $chapter->subject == 'math' ? 'selected' : ''}}>Mathematics</option>
                                 <option value="science" {{ $chapter->subject == 'math' ? 'selected' : ''}}>Science</option>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chapter;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -61,10 +63,13 @@ class UserController extends Controller
             return redirect()->route('login');
         }
     
-        $user->name = $request->name;
-        $user->gender = $request->gender;
-        $user->bio = $request->bio;
-        $user->save();
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'bio' => $request->bio,
+            ]);
     
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }    

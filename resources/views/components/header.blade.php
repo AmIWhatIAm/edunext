@@ -40,9 +40,10 @@
                         @endif
                     </div>
                 </div>
-
                 <ul class="dropdown-menu dropdown-menu-end">
-                    @if (Auth::guard('student')->check() || Auth::guard('lecturer')->check())
+                    @if(Auth::guard('student')->check() || Auth::guard('lecturer')->check())
+                        <li><a class="dropdown-item" href="{{ route('profile') }}">View Profile</a></li>
+            
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -54,7 +55,7 @@
                         <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
                     @endif
                 </ul>
-            </div>
+            </div>            
         </div>
     </div>
 </header>

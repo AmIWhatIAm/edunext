@@ -53,6 +53,18 @@ Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
 });
 
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+
 // student routes
 Route::middleware(['auth:student', 'role:student'])->group(function () {
     Route::get('/student/main', [UserController::class, 'studentMain'])

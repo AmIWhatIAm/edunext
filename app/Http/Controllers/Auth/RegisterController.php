@@ -45,7 +45,7 @@ class RegisterController extends Controller
             ]);
 
             Auth::guard('lecturer')->login($user);
-            return redirect('lecturer.main');
+            return redirect()->route('lecturer.main');
         } else {
             $user = Student::create([
                 'name' => $request->name,
@@ -57,7 +57,7 @@ class RegisterController extends Controller
             ]);
 
             Auth::guard('student')->login($user);
-            return redirect('student.main');
+            return redirect()->route('student.main');
         }
     }
 }

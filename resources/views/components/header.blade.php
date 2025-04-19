@@ -18,24 +18,32 @@
                 </div>
             </div>
 
-            <div class="user-rectangle dropdown">
-                <div class="dropdown-toggle d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="user-rectangle">
+                <div class="dropdown-toggle d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     <div class="username">
-                        @auth
-                            {{ Auth::user()->name }}
+                        @if(Auth::guard('student')->check())
+                            {{ Auth::guard('student')->user()->name }}
+                        @elseif(Auth::guard('lecturer')->check())
+                            {{ Auth::guard('lecturer')->user()->name }}
                         @else
                             Guest
-                        @endauth
+                        @endif
                     </div>
                 </div>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-                    @guest
+                    @if(Auth::guard('student')->check() || Auth::guard('lecturer')->check())
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </li>
+                    @else
                         <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
                         <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
-                    @else
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
-                    @endguest
+                    @endif
                 </ul>
             </div>
         </div>

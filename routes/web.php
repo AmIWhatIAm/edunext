@@ -34,29 +34,23 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-
-
-// // Del Record
-Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
-
-// Modify chapter details here
-Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapters.edit');
-
-
-
-Route::post('/auth', [UserController::class, 'handle'])->name('auth.handle');
+// Route::post('/auth', [UserController::class, 'handle'])->name('auth.handle');
 Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
-Route::get('/lecturer/main', [UserController::class, 'lecturerMain'])->name('lecturer.main');
 Route::get('/subject/{id}', [ChapterController::class, 'getTopics']);
 
 // Chapter routes
 Route::middleware(['auth', 'role:lecturer'])->group(function () {
+    Route::get('/lecturer/main', [UserController::class, 'lecturerMain'])->name('lecturer.main');
     // Show upload chapter form
     Route::get('/upload', [ChapterController::class, 'create'])->name('chapter.create');
     // Save chapter
     Route::post('/chapter', [ChapterController::class, 'store'])->name('chapter.store');
     // Show edit chapter form
     Route::get('/edit', [ChapterController::class, 'show'])->name('chapter.edit');
+    // Modify chapter details here
+    Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapter.edit');
     //Update chpater
-    Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapters.update');
+    Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapter.update');
+    // // Del Record
+    Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
 });

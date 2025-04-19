@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    protected $redirectTo = '';
+    // protected $redirectTo = 'home';
 
     public function __construct()
     {
@@ -32,11 +32,11 @@ class LoginController extends Controller
 
         if ($request->role == 'lecturer') {
             if (Auth::guard('lecturer')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'lecturer'])) {
-                return redirect('lecturer.main');
+                return redirect()->route('lecturer.main');
             }
         } else {
             if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'student'])) {
-                return redirect('student.main');
+                return redirect()->route('student.main');
             }
         }
 

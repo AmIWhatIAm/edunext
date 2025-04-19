@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chapter;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ChapterController extends Controller
 {
@@ -33,23 +35,26 @@ class ChapterController extends Controller
 
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        
+        $data = $request->validate([
             'name' => 'required | string',
             'subject' => 'required | string',
             'time_to_complete' => 'required | integer',
             'file_upload' => 'nullable|file|max:2048',
             'description' => 'required | string',
-
+            
         ]);
-
+        
+        $data['lecturer_id'] = Auth::guard('lecturer')->id();
+        
         if ($request->hasFile('file_upload')) {
             $originalName = $request->file('file_upload')->getClientOriginalName();
 
             $request->file('file_upload')->storeAs('uploads', $originalName, 'public');
 
-            $validate['file_upload'] = $originalName;
+            $data['file_upload'] = $originalName;
 
-            Chapter::create($validate);
+            Chapter::create($data);
 
             return redirect()->route('chapter.create')
                 ->with('success', 'Chapter created successfully!');
@@ -65,10 +70,6 @@ class ChapterController extends Controller
 
         return view('edit', compact('chapter', 'allChapters'));
     }
-
-    // public function create(){
-    //     return view('chapters.create');
-    // }
 
     public function edit(Chapter $chapter)
     {
@@ -113,5 +114,11 @@ class ChapterController extends Controller
         $chapter->delete();
 
         return redirect('/edit');
+    }
+
+    public function getChapters($subject)
+    {
+        $chapters = DB::table('chapters')->where('subject', $subject)->get();
+        return response()->json($chapters);
     }
 }

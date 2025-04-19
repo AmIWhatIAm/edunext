@@ -19,11 +19,11 @@ use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('/home', function () {
     return view('home');
-});
+})->name('home');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -34,11 +34,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Route::post('/auth', [UserController::class, 'handle'])->name('auth.handle');
-Route::get('/subject/{id}', [ChapterController::class, 'getTopics']);
+Route::get('/subjects', [ChapterController::class, 'getChapters']);
 
 // Lecturer routes
-Route::middleware(['auth', 'role:lecturer'])->group(function () {
+Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     Route::get('/lecturer/main', [UserController::class, 'lecturerMain'])->name('lecturer.main');
     // Show upload chapter form
     Route::get('/upload', [ChapterController::class, 'create'])->name('chapter.create');
@@ -55,6 +54,12 @@ Route::middleware(['auth', 'role:lecturer'])->group(function () {
 });
 
 // student routes
-Route::middleware(['auth', 'role:lecturer'])->group(function () {
-    Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
+Route::middleware(['auth:student', 'role:student'])->group(function () {
+    Route::get('/student/main', [UserController::class, 'studentMain'])
+        ->name('student.main');
 });
+
+// Route::fallback(function () {
+//     return redirect()->route('home')
+//                      ->with('error', 'The page you requested does not exist.');
+// });

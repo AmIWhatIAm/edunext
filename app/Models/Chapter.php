@@ -11,6 +11,7 @@ class Chapter extends Model
 
     // Specify the primary key if it's not 'id'
     protected $fillable = [
+        'lecturer_id',
         'name',
         'subject',
         'time_to_complete',

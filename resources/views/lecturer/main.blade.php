@@ -17,7 +17,7 @@
         <div class="col-md-9">
             <div id="topics-area"></div>
             <div id="topic-content" class="mt-3"></div>
-            <a href="{{ route('upload.page') }}" class="btn btn-primary mt-3"> ➕ Add Content</a>
+            <a href="{{ route('chapter.create') }}" class="btn btn-primary mt-3"> ➕ Add Content</a>
         </div>
     </div>
 </div>

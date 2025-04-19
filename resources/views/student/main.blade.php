@@ -15,6 +15,7 @@
         </div>
 
         <div class="col-md-9">
+            <a href="{{ route('chapter.create') }}" class="btn btn-primary">Upload Chapter</a>
             <div id="topics-area"></div>
             <div id="topic-content" class="mt-3"></div>
         </div>
@@ -24,7 +25,7 @@
 <script>
     document.querySelectorAll('.subject-item').forEach(item => {
         item.addEventListener('click', async () => {
-            let id = item.getAttribute('data-id');
+            let id = item.dataset.id;
             let res = await fetch(`/subject/${id}`);
             let topics = await res.json();
 
@@ -38,8 +39,8 @@
 
             document.querySelectorAll('.topic-item').forEach(topic => {
                 topic.addEventListener('click', async () => {
-                    let topicId = topic.getAttribute('data-id');
-                    let res = await fetch(`/topic/${topicId}`);
+                    let topicId = topic.dataset.id;
+                    let res = await fetch(`/subject/${topicId}`);
                     let data = await res.json();
                     document.getElementById('topic-content').innerHTML = `<h5>${data.title}</h5><p>${data.content}</p>`;
                 });
@@ -48,4 +49,4 @@
     });
 </script>
 
-  @endsection
+@endsection

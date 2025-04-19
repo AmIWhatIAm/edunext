@@ -7,16 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function getTopics($id)
-    {
-        $chapters = DB::table('chapters')->where('id', $id)->get();
-        return response()->json($chapters);
-    }
-
-    public function teacherMain()
+    public function lecturerMain()
     {
         $subjects = Chapter::all();
-        return view('teacher.main', compact('subjects'));
+        return view('lecturer.main', compact('subjects'));
     }
 
     public function studentMain()

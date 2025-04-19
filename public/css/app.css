@@ -977,6 +977,9 @@ video {
 .p-5 {
   padding: 1.25rem;
 }
+.p-0 {
+  padding: 0px;
+}
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;

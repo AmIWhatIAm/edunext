@@ -18,9 +18,17 @@
                     @foreach($subjects as $subject => $chapters)
                         <!-- Subject: Mathematics -->
                         <li class="list-group-item">
-                            <a class="fw-semibold text-decoration-none" data-bs-toggle="collapse" href="#subject{{ Str::slug($subject) }}">
-                                {{$subject}} ▼
-                        </a>
+                            <a
+                                class="fw-semibold text-decoration-none"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#subject{{ Str::slug($subject) }}"
+                                aria-expanded="false"
+                                aria-controls="subject{{ Str::slug($subject) }}"
+                            >
+                                {{ $subject }} ▼
+                            </a>
                             <div class="collapse mt-2" id="subject{{ Str::slug($subject) }}">
                                 <ul class="list-group">
                                     @foreach ($chapters as $chapter)
@@ -98,5 +106,4 @@
             </div>
         </div>
     </div>
-
 @endsection

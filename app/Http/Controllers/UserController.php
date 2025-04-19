@@ -9,16 +9,31 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function lecturerMain()
+    public function lecturerMain($subject = null)
     {
-        $subjects = Chapter::all();
-        return view('lecturer.main', compact('subjects'));
-    }
+        // 1) your master list of subjects
+        $subjectList = Chapter::subjects();
 
-    public function studentMain()
+        // 2) fetch chapters only for the clicked subject
+        $chapters = $subject
+            ? Chapter::where('lecturer_id', Auth::guard('lecturer')->id())
+                     ->where('subject', ucfirst($subject))
+                     ->get()
+            : collect(); // empty if none selected
+
+        // 3) render the same view
+        return view('lecturer.main', compact('subjectList','subject','chapters'));
+    }
+    
+    public function studentMain($subject = null)
     {
-        $subjects = Chapter::all();
-        return view('student.main', compact('subjects'));
+        $subjectList = Chapter::subjects();
+        $chapters = $subject
+            ? Chapter::
+                     where('subject', ucfirst($subject))
+                     ->get()
+            : collect(); // empty if none selected
+        return view('student.main', compact('subjectList'), compact('chapters'));
     }
 
     public function showProfile()
@@ -62,7 +77,7 @@ class UserController extends Controller
         } else {
             return redirect()->route('login');
         }
-    
+
         DB::table('users')
             ->where('id', $user->id)
             ->update([
@@ -72,5 +87,6 @@ class UserController extends Controller
             ]);
     
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
-    }    
+    
+    }
 }

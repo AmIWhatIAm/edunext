@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Chapter;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -13,21 +14,9 @@ class ChapterController extends Controller
 {
     public function create()
     {
-        $lecturerId = Auth::guard('lecturer')->id();
+        $lecturerId  = Auth::guard('lecturer')->id();
+        $subjectList = Chapter::subjects();
 
-        $subjectList = [
-            'Mathematics',
-            'Physics',
-            'Chemistry',
-            'Biology',
-            'Computer Science',
-            'History',
-            'Geography',
-            'Literature',
-            'Economics'
-        ];
-
-        // Get chapters grouped by subject
         $subjects = [];
         foreach ($subjectList as $subject) {
             $subjects[$subject] = Chapter::where('subject', $subject)
@@ -40,16 +29,16 @@ class ChapterController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $data = $request->validate([
             'name' => 'required | string',
             'subject' => 'required | string',
             'time_to_complete' => 'required | integer',
             'file_upload' => 'nullable|file|max:2048',
             'description' => 'required | string',
-            
+
         ]);
-        
+
         $data['lecturer_id'] = Auth::guard('lecturer')->id();
 
         if ($request->hasFile('file_upload')) {
@@ -92,7 +81,7 @@ class ChapterController extends Controller
 
         if ($request->hasFile('file_upload')) {
             if ($chapter->file_upload) {
-                Storage::delete('public/'.$chapter->file_upload);
+                Storage::delete('public/' . $chapter->file_upload);
             }
             $orig = $request->file('file_upload')->getClientOriginalName();
             $request->file('file_upload')->storeAs('uploads', $orig, 'public');
@@ -103,7 +92,7 @@ class ChapterController extends Controller
 
         return redirect()
             ->route('chapter.edit', $chapter)
-            ->with('success','Chapter updated');
+            ->with('success', 'Chapter updated');
     }
 
     public function destroy(Chapter $chapter)
@@ -116,11 +105,5 @@ class ChapterController extends Controller
         $chapter->delete();
 
         return redirect('/edit');
-    }
-
-    public function getChapters($subject)
-    {
-        $chapters = DB::table('chapters')->where('subject', $subject)->get();
-        return response()->json($chapters);
     }
 }

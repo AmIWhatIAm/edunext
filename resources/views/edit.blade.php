@@ -26,7 +26,6 @@
                     <tbody>
                         @foreach($allChapters as $chapterItem)
                             <tr>
-                                <td>{{ $chapterItem->lecturer_id}}</td>
                                 <td>{{ $chapterItem->id }}</td>
                                 <td>{{ $chapterItem->name }}</td>
                                 <td>{{ $chapterItem->subject }}</td>

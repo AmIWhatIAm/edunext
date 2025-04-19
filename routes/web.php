@@ -34,11 +34,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::get('/subjects', [ChapterController::class, 'getChapters']);
+// Route::get('/category/{category}/chapters', [ChapterController::class, 'getChapters']);
 
 // Lecturer routes
 Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
-    Route::get('/lecturer/main', [UserController::class, 'lecturerMain'])->name('lecturer.main');
+    Route::get('lecturer/main/{subject?}', [UserController::class, 'lecturerMain'])
+        ->name('lecturer.main');
     // Show upload chapter form
     Route::get('/upload', [ChapterController::class, 'create'])->name('chapter.create');
     // Save chapter
@@ -67,7 +68,7 @@ Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.
 
 // student routes
 Route::middleware(['auth:student', 'role:student'])->group(function () {
-    Route::get('/student/main', [UserController::class, 'studentMain'])
+    Route::get('student/main/{subject?}', [UserController::class, 'studentMain'])
         ->name('student.main');
 });
 

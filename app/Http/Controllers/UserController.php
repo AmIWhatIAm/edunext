@@ -142,13 +142,13 @@ class UserController extends Controller
 
     public function teacherMain()
     {
-        $subjects = Subject::all();
+        $subjects = ['Mathematics', 'Science', 'History'];
         return view('teacher.main', compact('subjects'));
     }
 
     public function studentMain()
     {
-        $subjects = Subject::all();
+        $subjects = ['Mathematics', 'Science', 'History'];
         return view('student.main', compact('subjects'));
     }
 }

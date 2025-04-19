@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChapterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::delete('/edit/{subject}', [UserController::class, 'destroy'])->name('subj
 Route::get('/edit/{subject}/editForm', [UserController::class, 'edit'])->name('subject.edit');
 
 Route::post('/auth', [UserController::class,'handle'])->name('auth.handle');
-Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
+
+Route::get('/category/{category}/chapters', [ChapterController::class, 'getChapters']);
 Route::get('/teacher/main', [UserController::class, 'teacherMain'])->name('teacher.main');
-Route::get('/subject/{id}', [SubjectController::class, 'getTopics']);
+Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');

@@ -6,46 +6,41 @@
         <div class="col-md-3">
             <h4>Subjects</h4>
             <ul class="list-group">
-                @foreach($subjects as $subject)
-                <li class="list-group-item subject-item" data-id="{{$subject->id}}">
-                    {{ $subject->name}}
+                <li class="list-group-item">
+                    <a href="{{ url('/category/math/chapters') }}">Mathematics</a>
                 </li>
-                @endforeach
+                <li class="list-group-item">
+                    <a href="{{ url('/category/science/chapters') }}">Science</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ url('/category/history/chapters') }}">History</a>
+                </li>
             </ul>
         </div>
 
         <div class="col-md-9">
-            <div id="topics-area"></div>
-            <div id="topic-content" class="mt-3"></div>
+            @if(isset($category))
+                <h3>Chapters for {{ ucfirst($category) }}</h3>
+                @if($chapters->isEmpty())
+                    <p>No chapters available for this category.</p>
+                @else
+                    <ul class="list-group mt-3">
+                        @foreach($chapters as $chapter)
+                            <li class="list-group-item">
+                                <strong>{{ $chapter->name }}</strong><br>
+                                Time to complete: {{ $chapter->time_to_complete }} hours<br>
+                                Description: {{ $chapter->description }}<br>
+                                @if($chapter->file_upload)
+                                    <a href="{{ asset('storage/uploads/' . $chapter->file_upload) }}" target="_blank">View File</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            @else
+                <p>Please select a category to view chapters.</p>
+            @endif
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelectorAll('.subject-item').forEach(item => {
-        item.addEventListener('click', async () => {
-            let id = item.getAttribute('data-id');
-            let res = await fetch(`/subject/${id}`);
-            let topics = await res.json();
-
-            let topicHTML = `<ul class="list-group mt-3">`;
-            topics.forEach(t => {
-                topicHTML += `<li class="list-group-item topic-item" data-id="${t.id}">${t.title}</li>`;
-            });
-            topicHTML += `</ul>`;
-
-            document.getElementById('topics-area').innerHTML = topicHTML;
-
-            document.querySelectorAll('.topic-item').forEach(topic => {
-                topic.addEventListener('click', async () => {
-                    let topicId = topic.getAttribute('data-id');
-                    let res = await fetch(`/topic/${topicId}`);
-                    let data = await res.json();
-                    document.getElementById('topic-content').innerHTML = `<h5>${data.title}</h5><p>${data.content}</p>`;
-                });
-            });
-        });
-    });
-</script>
-
-  @endsection
+@endsection

@@ -33,7 +33,6 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
                     @if(Auth::guard('student')->check() || Auth::guard('lecturer')->check())
-                        <!-- Add View Profile link -->
                         <li><a class="dropdown-item" href="{{ route('profile') }}">View Profile</a></li>
             
                         <li>

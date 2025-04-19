@@ -3,13 +3,10 @@
 @section('content')
   <div class="container">
     <div class="profile-container">
-
-    <!-- Profile Heading (Add here above the profile picture) -->
     <div class="profile-header">
-      <h2 id="profile-heading">Your Profile</h2> <!-- The heading will change based on mode -->
+      <h2 id="profile-heading">Your Profile</h2>
     </div>
 
-    <!-- Profile Section with Picture and Info -->
     <div class="profile-header">
       <div class="profile-pic">
       <img src="{{ asset($user->role == 'lecturer' ? 'image/Teacher.png' : 'image/ProfileImage.png') }}"
@@ -22,26 +19,22 @@
       </div>
     </div>
 
-    <!-- Profile Details Section -->
     <div class="profile-details">
       <form id="profile-form" action="{{ route('profile.update') }}" method="POST">
       @csrf
       @method('PUT')
 
-      <!-- Name Field -->
       <p><strong>Name:</strong>
         <span id="name-view">{{ $user->name }}</span>
         <input type="text" id="name-edit" name="name" value="{{ $user->name }}" class="editable-field"
         style="display:none;">
       </p>
 
-      <!-- Email Field (Read-Only) -->
       <p><strong>Email:</strong>
         <span id="email-view">{{ $user->email }}</span>
         <input type="text" id="email-edit" name="email" value="{{ $user->email }}" style="display:none;" readonly>
       </p>
 
-      <!-- Gender Field -->
       <p><strong>Gender:</strong>
         <span id="gender-view">{{ ucfirst($user->gender) }}</span>
         <select id="gender-edit" name="gender" class="editable-field" style="display:none;">
@@ -51,13 +44,11 @@
         </select>
       </p>
 
-      <!-- Bio Field -->
       <p><strong>Bio:</strong>
         <span id="bio-view">{{ $user->bio }}</span>
         <textarea id="bio-edit" name="bio" class="bio-field " style="display:none;">{{ $user->bio }}</textarea>
       </p>
 
-      <!-- Edit and Save Buttons -->
       <div id="edit-buttons">
         <button type="button" class="btn btn-primary" id="edit-btn">Edit Profile</button>
         <button type="submit" class="btn btn-success" id="save-btn" style="display:none;">Save Changes</button>
@@ -89,7 +80,6 @@
     justify-content: center;
     }
 
-    /* Profile Heading */
     #profile-heading {
     font-size: 1.5rem;
     font-weight: bold;
@@ -128,7 +118,6 @@
     margin: 20px 0;
     }
 
-    /* Editable Fields */
     .editable-field {
     display: block;
     margin-top: 10px;
@@ -137,7 +126,6 @@
     background-color: #d0d3e5;
     width: 60%;
     border: 1px solid #49BBBD;
-    /* border color change */
     border-radius: 5px;
     }
 
@@ -159,7 +147,6 @@
     outline: none;
     }
 
-    /* Edit Profile Button Color */
     .btn.btn-primary {
     background-color: #252641;
     border: none;
@@ -185,12 +172,9 @@
   </style>
 
   <script>
-    // JavaScript to toggle between view and edit modes
     document.getElementById('edit-btn').addEventListener('click', function () {
-    // Change profile heading
     document.getElementById('profile-heading').innerText = 'Edit Profile';
 
-    // Toggle the visibility of the fields
     document.getElementById('name-view').style.display = 'none';
     document.getElementById('name-edit').style.display = 'inline-block';
     document.getElementById('email-view').style.display = 'none';
@@ -200,7 +184,6 @@
     document.getElementById('bio-view').style.display = 'none';
     document.getElementById('bio-edit').style.display = 'inline-block';
 
-    // Show the Save button and hide the Edit button
     document.getElementById('save-btn').style.display = 'inline-block';
     document.getElementById('edit-btn').style.display = 'none';
     });

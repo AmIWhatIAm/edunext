@@ -35,10 +35,9 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'register']);
 
 // Route::post('/auth', [UserController::class, 'handle'])->name('auth.handle');
-Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
 Route::get('/subject/{id}', [ChapterController::class, 'getTopics']);
 
-// Chapter routes
+// Lecturer routes
 Route::middleware(['auth', 'role:lecturer'])->group(function () {
     Route::get('/lecturer/main', [UserController::class, 'lecturerMain'])->name('lecturer.main');
     // Show upload chapter form
@@ -51,6 +50,11 @@ Route::middleware(['auth', 'role:lecturer'])->group(function () {
     Route::get('/edit/{chapter}/editForm', [ChapterController::class, 'edit'])->name('chapter.edit');
     //Update chpater
     Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapter.update');
-    // // Del Record
+    // Del Record
     Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
+});
+
+// student routes
+Route::middleware(['auth', 'role:lecturer'])->group(function () {
+    Route::get('/student/main', [UserController::class, 'studentMain'])->name('student.main');
 });

@@ -18,9 +18,10 @@ class RegisterController extends Controller
         $this->middleware('guest:student');
     }
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
-        return view('auth.auth', ['formType' => 'register']);
+        $defaultRole = $request->query('role', 'student');
+        return view('auth.auth', ['formType' => 'register', 'defaultRole' => $defaultRole,]);
     }
 
     public function register(Request $request)

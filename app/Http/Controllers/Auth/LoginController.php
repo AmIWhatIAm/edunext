@@ -17,9 +17,10 @@ class LoginController extends Controller
         $this->middleware('guest:student')->except('logout');
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        return view('auth.auth', ['formType' => 'login']);
+        $defaultRole = $request->query('role', 'student');
+        return view('auth.auth', ['formType' => 'login','defaultRole' => $defaultRole,]);
     }
 
     public function login(Request $request)

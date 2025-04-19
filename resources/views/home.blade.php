@@ -25,8 +25,8 @@
                     EduNext offers personalized learning with expert tutors, interactive courses, and quizzes
                 </p>
                 <div class="mt-4">
-                    <a href="{{ url('/login') }}" class="btn btn-light me-3">I'm a Student</a>
-                    <a href="{{ url('/login') }}" class="btn btn-outline-light">I'm a Teacher</a>
+                    <a href="{{ url('/login?role=student') }}" class="btn btn-light me-3">I'm a Student</a>
+                    <a href="{{ url('/login?role=lecturer') }}" class="btn btn-outline-light">I'm a Lecturer</a>
                 </div>
             </div>
             <div>

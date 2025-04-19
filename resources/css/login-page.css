@@ -168,7 +168,7 @@
     width: fit-content;
 }
 
-.role-choice label {
+.role-choice label, .gender-choice label {
     cursor: pointer;
 }
 

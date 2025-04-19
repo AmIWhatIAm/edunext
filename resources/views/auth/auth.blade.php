@@ -44,11 +44,11 @@
                 <div class="role-choice">
                     <span class="text-lg">Login as: </span>
                     <div>
-                        <input type="radio" id="student" name="role" value="student" checked>
+                        <input type="radio" id="student" name="role" value="student" {{ old('role', $defaultRole) === 'student' ? 'checked' : '' }}>
                         <label for="student">Student</label>
                     </div>
                     <div>
-                        <input type="radio" id="lecturer" name="role" value="lecturer">
+                        <input type="radio" id="lecturer" name="role" value="lecturer" {{ old('role', $defaultRole) === 'lecturer' ? 'checked' : '' }}>
                         <label for="lecturer">Lecturer</label>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 <!-- register form fields -->
                 <div>
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your E-mail">
+                    <input type="email" id="newEmail" name="email" placeholder="Enter your E-mail">
                 </div>
                 <div>
                     <label for="newName">Name</label>
@@ -88,12 +88,12 @@
                 <div class="role-choice">
                     <span class="text-lg">Register as: </span>
                     <div>
-                        <input type="radio" id="student" name="role" value="student" checked>
-                        <label for="student">Student</label>
+                        <input type="radio" id="newStudent" name="role" value="student" {{ old('role', $defaultRole) === 'student' ? 'checked' : '' }}>
+                        <label for="newStudent">Student</label>
                     </div>
                     <div>
-                        <input type="radio" id="lecturer" name="role" value="lecturer">
-                        <label for="lecturer">Lecturer</label>
+                        <input type="radio" id="newLecturer" name="role" value="lecturer" {{ old('role', $defaultRole) === 'lecturer' ? 'checked' : '' }}>
+                        <label for="newLecturer">Lecturer</label>
                     </div>
                 </div>
                 <div class="gender-choice">
@@ -139,7 +139,7 @@
                 alert.style.display = 'none';
             });
 
-            localStorage.setItem('currentForm', formType);
+            sessionStorage.setItem('currentForm', formType);
 
             if (formType === 'login') {
 
@@ -194,7 +194,6 @@
                 @else
                     switchForm('login');
                 @endif
-                // Check localStorage next
             @else
                 const savedForm = localStorage.getItem('currentForm');
                 if (savedForm) {

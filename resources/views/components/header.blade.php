@@ -8,8 +8,8 @@
             <a href="/">Home</a>
             <a href="#about-us">About Us</a>
             @if (Auth::guard('student')->check() || Auth::guard('lecturer')->check())
-            <a
-                href="@if (Auth::guard('lecturer')->check()) {{ route('lecturer.main') }}
+                <a
+                    href="@if (Auth::guard('lecturer')->check()) {{ route('lecturer.main') }}
             @elseif(Auth::guard('student')->check())
                 {{ route('student.main') }}
             @else
@@ -41,9 +41,24 @@
                     </div>
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    @if(Auth::guard('student')->check() || Auth::guard('lecturer')->check())
+                    @if (Auth::guard('student')->check() || Auth::guard('lecturer')->check())
                         <li><a class="dropdown-item" href="{{ route('profile') }}">View Profile</a></li>
-            
+                       @if (Auth::guard('student')->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('student.activities') }}">
+                                    My Activities
+                                </a>
+                            </li>
+                        @endif
+
+                        @if(Auth::guard('lecturer')->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('lecturer.activities') }}">
+                                    My Activities
+                                </a>
+                            </li>
+                        @endif
+
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -55,7 +70,7 @@
                         <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
                     @endif
                 </ul>
-            </div>            
+            </div>
         </div>
     </div>
 </header>

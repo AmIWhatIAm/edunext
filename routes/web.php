@@ -43,7 +43,7 @@ Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
         Chapter::subjects()
     ));
 
-    Route::get('lecturer/main/{subject?}', [UserController::class, 'lecturerMain'])
+    Route::get('lecturer/main/{subject?}', [ChapterController::class, 'lecturerMain'])
         ->where('subject', "($slugs)?")
         ->name('lecturer.main');
     // Show upload chapter form
@@ -58,6 +58,8 @@ Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     Route::put('/edit/{chapter}/editForm', [ChapterController::class, 'update'])->name('chapter.update');
     // Del Record
     Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
+    Route::get('lecturer/activities', [UserController::class,'activities'])
+    ->name('lecturer.activities');
 });
 
 // student routes
@@ -67,9 +69,12 @@ Route::middleware(['auth:student', 'role:student'])->group(function () {
         Chapter::subjects()
     ));
     
-    Route::get('student/main/{subject?}', [UserController::class, 'studentMain'])
+    Route::get('student/main/{subject?}', [ChapterController::class, 'studentMain'])
     ->where('subject', "($slugs)?")
     ->name('student.main');
+
+    Route::get('student/activities', [UserController::class,'activities'])
+    ->name('student.activities');
 });
 
 // Profile routes

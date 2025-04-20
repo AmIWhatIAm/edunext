@@ -2,34 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapter;
+use App\Models\User;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function lecturerMain($subject = null)
-    {
-        $subjectList = Chapter::subjects();
-
-        $chapters = $subject
-            ? Chapter::where('subject', ucfirst($subject))
-            ->get()
-            : collect();
-        return view('lecturer.main', compact('subject', 'subjectList', 'chapters'));
-    }
-
-    public function studentMain($subject = null)
-    {
-        $subjectList = Chapter::subjects();
-        $chapters = $subject
-            ? Chapter::where('subject', ucfirst($subject))
-            ->get()
-            : collect();
-        return view('student.main', compact('subject', 'subjectList', 'chapters'));
-    }
-
     public function showProfile()
     {
         if (Auth::guard('student')->check()) {
@@ -72,14 +51,39 @@ class UserController extends Controller
             return redirect()->route('login');
         }
 
-        DB::table('users')
-            ->where('id', $user->id)
+        User::where('id', $user->id)
             ->update([
                 'name' => $request->name,
                 'gender' => $request->gender,
                 'bio' => $request->bio,
             ]);
 
+        UserActivity::create([
+            'user_id'            => $user->id,
+            'last_activity_type' => 'profile_update',
+            'activity_id'        => null,
+            'is_active'          => true,
+        ]);
+
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+    }
+
+    public function activities()
+    {
+        if (Auth::guard('student')->check()) {
+            $user = Auth::guard('student')->user();
+        } elseif (Auth::guard('lecturer')->check()) {
+            $user = Auth::guard('lecturer')->user();
+        } else {
+            return redirect()->route('login');
+        }
+
+        // pull all activities for this user, most recent first
+        // paginate activities (15 per page)
+        $activities = UserActivity::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);  // <-- changed from get() to paginate()
+
+        return view('activities.main', compact('activities'));
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\UserActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // protected $redirectTo = 'home';
-
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
@@ -20,36 +19,66 @@ class LoginController extends Controller
     public function showLoginForm(Request $request)
     {
         $defaultRole = $request->query('role', 'student');
-        return view('auth.auth', ['formType' => 'login','defaultRole' => $defaultRole,]);
+        return view('auth.auth', compact('defaultRole'));
     }
 
     public function login(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
+        $request->validate([
+            'email'    => 'required|email',
             'password' => 'required',
-            'role' => 'required|in:student,lecturer',
+            'role'     => 'required|in:student,lecturer',
         ]);
 
-        if ($request->role == 'lecturer') {
-            if (Auth::guard('lecturer')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'lecturer'])) {
-                return redirect()->route('lecturer.main');
-            }
-        } else {
-            if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password, 'role' => 'student'])) {
-                return redirect()->route('student.main');
-            }
+        $guard = $request->role;
+        $remember = $request->boolean('remember');
+        $credentials = ['email' => $request->email, 'password' => $request->password, 'role' => $guard];
+
+        if (Auth::guard($guard)->attempt($credentials, $remember)) {
+            // Record login activity
+            UserActivity::create([
+                'user_id' => Auth::guard($guard)->id(),
+                'last_activity_type' => 'login',
+                'activity_id' => null,
+                'is_active' => true,
+            ]);
+
+            return redirect()->route("{$guard}.main");
         }
 
-        return back()->withInput($request->only('email', 'role'))
-            ->withErrors(['email' => 'These credentials do not match our records.']);
+        return back()
+            ->withInput($request->only('email', 'role', 'remember'))
+            ->withErrors(['email' => 'Invalid credentials']);
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        // Check which guard is active
+        if (Auth::guard('lecturer')->check()) {
+            $guard = 'lecturer';
+            $userId = Auth::guard('lecturer')->id();
+        } elseif (Auth::guard('student')->check()) {
+            $guard = 'student';
+            $userId = Auth::guard('student')->id();
+        } else {
+            return redirect('/login');
+        }
+
+        // Logout
+        Auth::guard($guard)->logout();
+        
+        // Invalidate session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Log activity
+        UserActivity::create([
+            'user_id' => $userId,
+            'last_activity_type' => 'logout',
+            'activity_id' => null,
+            'is_active' => false,
+        ]);
+
         return redirect('/login');
     }
 }

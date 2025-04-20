@@ -17,7 +17,7 @@ class CreateUserActivitiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->enum('last_activity_type', ['quiz', 'chapter_view']);
+            $table->string('last_activity_type');
             $table->string('activity_id')->nullable();
             $table->boolean('is_active');
             $table->timestamps();

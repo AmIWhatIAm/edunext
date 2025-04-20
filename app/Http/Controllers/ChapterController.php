@@ -5,11 +5,47 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Chapter;
+use App\Models\UserActivity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ChapterController extends Controller
 {
+    public function lecturerMain($subject = null)
+    {
+        $subjectList = Chapter::subjects();
+
+        $chapters = $subject
+            ? Chapter::where('subject', ucfirst($subject))
+            ->get()
+            : collect();
+        return view('lecturer.main', compact('subject', 'subjectList', 'chapters'));
+    }
+
+    public function studentMain($subject = null)
+    {
+        $subjectList = Chapter::subjects();
+
+        if ($subject) {
+            Session::put('last_subject', $subject);
+        }
+        $chapters = $subject
+            ? Chapter::where('subject', ucfirst($subject))
+            ->get()
+            : collect();
+
+        if ($subject && Auth::guard('student')->check()) {
+            UserActivity::create([
+                'user_id'            => Auth::guard('student')->id(),
+                'last_activity_type' => 'chapter_view',
+                'activity_id'        => $subject,
+                'is_active'          => true,
+            ]);
+        }
+        return view('student.main', compact('subject', 'subjectList', 'chapters'));
+    }
+
     public function create()
     {
         $lecturerId  = Auth::guard('lecturer')->id();
@@ -27,10 +63,9 @@ class ChapterController extends Controller
 
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'name' => 'required | max:255',
-            'category' => 'required | string | max:255',
+            'subject' => 'required | string | max:255',
             'time_to_complete' => 'required | integer | max:255',
             'file_upload' => 'required | file | max:2048 | mimes:pdf',
             // Needed to use the below function to validate the description field as the regex was not working as expected.
@@ -55,11 +90,18 @@ class ChapterController extends Controller
 
             $data['file_upload'] = $originalName;
 
-            Chapter::create($data);
-
-            return redirect()->route('chapter.create')
-                ->with('success', 'Chapter created successfully!');
         }
+        Chapter::create($data);
+
+        UserActivity::create([
+            'user_id'            => Auth::guard('lecturer')->id(),
+            'last_activity_type' => 'chapter_create',
+            'activity_id'        => null,
+            'is_active'          => true,
+        ]);
+
+        return redirect()->route('chapter.create')
+            ->with('success', 'Chapter created successfully!');
     }
 
     // CRUD
@@ -73,14 +115,14 @@ class ChapterController extends Controller
     {
         $this->authorize('update', $chapter);
         $subjects = Chapter::subjects();
-        return view('editForm', compact('chapter','subjects'));
+        return view('editForm', compact('chapter', 'subjects'));
     }
 
     public function update(Request $request, Chapter $chapter)
     {
         $this->authorize('update', $chapter);
         $data = $request->validate([
-            'name' => 'required | max:255',            
+            'name' => 'required | max:255',
             'subject' => 'required | string | max:255',
             'time_to_complete' => 'required | integer | max:255',
             'file_upload' => 'nullable | file | max:2048 | mimes:pdf',
@@ -94,7 +136,7 @@ class ChapterController extends Controller
                         $fail('The ' . $attribute . ' must not be a number.');
                     }
                 },
-            ],       
+            ],
         ]);
 
         if ($request->hasFile('file_upload')) {
@@ -107,6 +149,13 @@ class ChapterController extends Controller
         }
 
         $chapter->update($data);
+
+        UserActivity::create([
+            'user_id'            => Auth::guard('lecturer')->id(),
+            'last_activity_type' => 'chapter_update',
+            'activity_id'        => $chapter->id,
+            'is_active'          => true,
+        ]);
 
         return redirect()
             ->route('chapter.edit')
@@ -121,6 +170,13 @@ class ChapterController extends Controller
         }
 
         $chapter->delete();
+
+        UserActivity::create([
+            'user_id'            => Auth::guard('lecturer')->id(),
+            'last_activity_type' => 'chapter_delete',
+            'activity_id'        => $chapter->id,
+            'is_active'          => false,
+        ]);
 
         return redirect('/edit');
     }

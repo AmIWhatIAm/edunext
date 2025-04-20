@@ -12,7 +12,8 @@ class UserActivity extends Model
     protected $fillable = [
         'user_id',
         'last_activity_type',
-        'activity_id'
+        'activity_id',
+        'is_active',
     ];
 
     public function user()

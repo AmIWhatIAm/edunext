@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\UserActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class LoginController extends Controller
     public function showLoginForm(Request $request)
     {
         $defaultRole = $request->query('role', 'student');
-        return view('auth.auth', ['formType' => 'login','defaultRole' => $defaultRole,]);
+        return view('auth.auth', ['formType' => 'login', 'defaultRole' => $defaultRole,]);
     }
 
     public function login(Request $request)
@@ -41,12 +42,26 @@ class LoginController extends Controller
             }
         }
 
+        UserActivity::create([
+            'user_id'            => Auth::id(),
+            'last_activity_type' => 'login',
+            'activity_id'        => null,
+            'is_active'          => true,
+        ]);
+
         return back()->withInput($request->only('email', 'role'))
             ->withErrors(['email' => 'These credentials do not match our records.']);
     }
 
     public function logout(Request $request)
     {
+        UserActivity::create([
+            'user_id'            => Auth::id(),
+            'last_activity_type' => 'logout',
+            'activity_id'        => null,
+            'is_active'          => false,
+          ]);
+          
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

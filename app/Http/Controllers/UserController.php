@@ -24,12 +24,6 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'gender' => 'required|in:male,female,private',
-            'bio' => 'nullable|string|max:1000',
-        ]);
-
         if (Auth::guard('student')->check()) {
             $user = Auth::guard('student')->user();
         } elseif (Auth::guard('lecturer')->check()) {

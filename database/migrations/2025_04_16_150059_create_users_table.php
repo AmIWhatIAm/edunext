@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-class CreateTestTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +13,15 @@ class CreateTestTable extends Migration
      */
     public function up()
     {
-        Schema::create('test', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('name');
-            $table->string('category');
-            $table->integer('time_to_complete');
-            $table->integer('description');
-            $table->string('file_upload')->nullable();
+            $table->enum('gender', ['male', 'female', 'private']);
+            $table->string('bio')->nullable();
+            $table->enum('role', ['lecturer','student']);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateTestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('test');
+        Schema::dropIfExists('users');
     }
 }

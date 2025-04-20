@@ -13,13 +13,12 @@
 <body>
     <x-header />
     
-    <main>
-        {{-- Another template will be inserted here, it will display the current design of the loaded page --}}
+    <main class="py-3">
         @yield('content')
     </main>
     
     <x-footer />
     
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
 </body>
 </html>

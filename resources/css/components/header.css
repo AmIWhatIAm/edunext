@@ -6,7 +6,8 @@
     align-items: center;
     padding: 1% 5%;
     box-sizing: border-box; 
-    overflow: hidden; 
+    /* need to change this to visible to enable drop-down menu to work */
+    overflow: visible; 
 }
 
 .header-nav {
@@ -39,14 +40,67 @@
     background-color: #ececec;
     width: 170px;
     height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
     border-radius: 75px 75px;
-    padding: 0 25px;
+    padding: 0px 25px;
+    display: flex;
+    align-items: center;
+}
+
+.user-rectangle .dropdown-toggle {
+    width: 100%;
+    align-items: center;
+    display: flex;
 }
 
 .username {
     font-weight: bolder;
+    text-align: center;
+}
+
+ /* Style for dropdown */
+ .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    text-decoration: none;
+    color: #5b5b5b;
+    font-weight: bolder;
+    font-size: 16px; 
+    transition: color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 2147483647; /* Maximum possible z-index value */
+    top: 100%; /* Position right below the dropdown toggle */
+    left: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #5b5b5b;
+    font-weight: bolder;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

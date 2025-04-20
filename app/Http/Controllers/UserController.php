@@ -2,93 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
 use Illuminate\Http\Request;
-use App\Models\Subject;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function lecturerMain($subject = null)
+    {
+        $subjectList = Chapter::subjects();
 
-
-    public function store(Request $request){
-        // dd($request->all());
-
-        $validate = $request->validate([
-            'name' => 'required | string',
-            'category' => 'required | string',
-            'time_to_complete' => 'required | string',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'required | string',
-
-        ]);
-
-        if($request->hasFile('file_upload')){
-            $originalName = $request->file('file_upload')->getClientOriginalName();
-
-            $request->file('file_upload')->storeAs('uploads', $originalName , 'public');
-
-            $validate['file_upload'] = $originalName;
-
-        Subject::create($validate);
-
-        return redirect('/');
-        }
+        $chapters = $subject
+            ? Chapter::where('subject', ucfirst($subject))
+            ->get()
+            : collect();
+        return view('lecturer.main', compact('subject', 'subjectList', 'chapters'));
     }
 
-    // CRUD
-    public function show(Subject $subject){
-
-        $allSubjects = Subject::all();
-        
-
-        return view('edit', compact('subject', 'allSubjects'));
-    }
-    
-    public function edit(Subject $subject)
-    {                
-        return view('editForm', compact('subject'));
+    public function studentMain($subject = null)
+    {
+        $subjectList = Chapter::subjects();
+        $chapters = $subject
+            ? Chapter::where('subject', ucfirst($subject))
+            ->get()
+            : collect();
+        return view('student.main', compact('subject', 'subjectList', 'chapters'));
     }
 
-    public function update(Request $request, Subject $subject){
-        $validated = $request->validate([
-            'name' => 'string',
-            'category' => 'string',
-            'time_to_complete' => 'string',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'string',        
-        ]);
-
-        if ($request->hasFile('file_upload')) {
-            // Del the old file if its exist
-            if($subject->file_upload){
-                Storage::delete('public/' . $subject->file_upload);
-            }
-        
-        // Store the file and get path
-        $originalName = $request->file('file_upload')->getClientOriginalName();
-
-            $request->file('file_upload')->storeAs('uploads', $originalName , 'public');
-
-            $validated['file_upload'] = $originalName;
-
-            $subject->update($validated);
-
-            // dd($request->all());
-    
-            return redirect('edit');
-    }
-
-      
-    }
-
-    public function destroy(Subject $subject){
-        if($subject->file_upload){
-            Storage::delete('public/' . $subject->file_upload);
+    public function showProfile()
+    {
+        if (Auth::guard('student')->check()) {
+            $user = Auth::guard('student')->user();
+        } elseif (Auth::guard('lecturer')->check()) {
+            $user = Auth::guard('lecturer')->user();
+        } else {
+            return redirect()->route('login');
         }
 
-        $subject->delete();
+        return view('profile.profile', compact('user'));
+    }
 
-        return redirect('/edit');
+    public function editProfile()
+    {
+        if (Auth::guard('student')->check()) {
+            $user = Auth::guard('student')->user();
+        } elseif (Auth::guard('lecturer')->check()) {
+            $user = Auth::guard('lecturer')->user();
+        } else {
+            return redirect()->route('login');
+        }
+
+        return view('profile.edit', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gender' => 'required|in:male,female,private',
+            'bio' => 'nullable|string|max:1000',
+        ]);
+
+        if (Auth::guard('student')->check()) {
+            $user = Auth::guard('student')->user();
+        } elseif (Auth::guard('lecturer')->check()) {
+            $user = Auth::guard('lecturer')->user();
+        } else {
+            return redirect()->route('login');
+        }
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'bio' => $request->bio,
+            ]);
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }
 }

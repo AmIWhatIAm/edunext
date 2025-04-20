@@ -36,8 +36,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Route::get('/category/{category}/chapters', [ChapterController::class, 'getChapters']);
-
 // Lecturer routes
 Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     $slugs = implode('|', array_map(
@@ -62,31 +60,32 @@ Route::middleware(['auth:lecturer', 'role:lecturer'])->group(function () {
     Route::delete('/edit/{chapter}', [ChapterController::class, 'destroy'])->name('chapter.destroy');
 });
 
-Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
-
-Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
-
-Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
-
-Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
-
-Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
-
-Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
-
 // student routes
 Route::middleware(['auth:student', 'role:student'])->group(function () {
     $slugs = implode('|', array_map(
         fn($s)=> Str::slug(strtolower($s)),
         Chapter::subjects()
     ));
-
+    
     Route::get('student/main/{subject?}', [UserController::class, 'studentMain'])
-        ->where('subject', "($slugs)?")
-        ->name('student.main');
+    ->where('subject', "($slugs)?")
+    ->name('student.main');
 });
+
+// Profile routes
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+
+Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
+
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+
+Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 
 Route::fallback(function () {
     return redirect()->route('home')
-                     ->with('error', 'The page you requested does not exist.');
+    ->with('error', 'The page you requested does not exist.');
 });

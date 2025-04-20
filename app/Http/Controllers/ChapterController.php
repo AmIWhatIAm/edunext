@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Chapter;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ChapterController extends Controller
@@ -20,8 +18,8 @@ class ChapterController extends Controller
         $subjects = [];
         foreach ($subjectList as $subject) {
             $subjects[$subject] = Chapter::where('subject', $subject)
-                                         ->where('lecturer_id', $lecturerId)
-                                         ->get();
+                ->where('lecturer_id', $lecturerId)
+                ->get();
         }
 
         return view('upload', compact('subjects'));
@@ -31,12 +29,21 @@ class ChapterController extends Controller
     {
 
         $data = $request->validate([
-            'name' => 'required | string',
-            'subject' => 'required | string',
-            'time_to_complete' => 'required | integer',
-            'file_upload' => 'nullable|file|max:2048',
-            'description' => 'required | string',
-
+            'name' => 'required | max:255',
+            'category' => 'required | string | max:255',
+            'time_to_complete' => 'required | integer | max:255',
+            'file_upload' => 'required | file | max:2048 | mimes:pdf',
+            // Needed to use the below function to validate the description field as the regex was not working as expected.
+            'description' => [
+                'required',
+                'string',
+                'max:65535',
+                function ($attribute, $value, $fail) {
+                    if (is_numeric($value)) {
+                        $fail('The ' . $attribute . ' must not be a number.');
+                    }
+                },
+            ],
         ]);
 
         $data['lecturer_id'] = Auth::guard('lecturer')->id();
@@ -65,33 +72,44 @@ class ChapterController extends Controller
     public function edit(Chapter $chapter)
     {
         $this->authorize('update', $chapter);
-        return view('editForm', compact('chapter'));
+        $subjects = Chapter::subjects();
+        return view('editForm', compact('chapter','subjects'));
     }
 
     public function update(Request $request, Chapter $chapter)
     {
         $this->authorize('update', $chapter);
         $data = $request->validate([
-            'name'             => 'string',
-            'subject'          => 'string',
-            'time_to_complete' => 'integer',
-            'file_upload'      => 'nullable|file|max:2048',
-            'description'      => 'string',
+            'name' => 'required | max:255',            
+            'subject' => 'required | string | max:255',
+            'time_to_complete' => 'required | integer | max:255',
+            'file_upload' => 'nullable | file | max:2048 | mimes:pdf',
+            // Needed to use the below function to validate the description field as the regex was not working as expected.
+            'description' => [
+                'required',
+                'string',
+                'max:65535',
+                function ($attribute, $value, $fail) {
+                    if (is_numeric($value)) {
+                        $fail('The ' . $attribute . ' must not be a number.');
+                    }
+                },
+            ],       
         ]);
 
         if ($request->hasFile('file_upload')) {
             if ($chapter->file_upload) {
                 Storage::delete('public/' . $chapter->file_upload);
             }
-            $orig = $request->file('file_upload')->getClientOriginalName();
-            $request->file('file_upload')->storeAs('uploads', $orig, 'public');
-            $data['file_upload'] = $orig;
+            $originalName = $request->file('file_upload')->getClientOriginalName();
+            $request->file('file_upload')->storeAs('uploads', $originalName, 'public');
+            $data['file_upload'] = $originalName;
         }
 
         $chapter->update($data);
 
         return redirect()
-            ->route('chapter.edit', $chapter)
+            ->route('chapter.edit')
             ->with('success', 'Chapter updated');
     }
 

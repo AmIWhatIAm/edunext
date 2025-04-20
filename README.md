@@ -47,13 +47,19 @@ Then, migrate the database:
 php artisan migrate --seed
 ```
 
-### 5. Set Permissions
+### 5. Create Storage Symlink
+This web application uses symlinks and filesystems. To make sure file features work, run:
+```sh
+php artisan storage:link
+```
+
+### 6. Set Permissions
 Ensure the `storage` and `bootstrap/cache` directories are writable:
 ```sh
 chmod -R 777 storage bootstrap/cache
 ```
 
-### 6. Compiling frontend assets
+### 7. Compiling frontend assets
 You can compile the frontend assets using:
 ```sh
 npm run dev
@@ -65,7 +71,7 @@ OR additionally to compile automatically on change, run
 npm run watch
 ```
 
-### 7. Run the Development Server
+### 8. Run the Development Server
 You can start the Laravel development server using:
 ```sh
 php artisan serve

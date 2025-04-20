@@ -62,6 +62,9 @@
                         <div class="mb-4">
                             <label for="chapter_name" class="form-label fw-semibold">Chapter Name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter chapter name">
+                            @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Select Subject -->
@@ -73,25 +76,37 @@
                                     <option value="{{ $subjectName }}">{{ $subjectName }}</option>
                                 @endforeach
                             </select>
+                            @error('subject')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Enter Time to Complete -->
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
                             <input type="number" class="form-control" id="time_to_complete" name="time_to_complete" min="0">
+                            @error('time_to_complete')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Upload File -->
                         <div class="mb-4">
                             <label for="file_upload" class="form-label fw-semibold">File Upload</label>
-                            <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf">
+                            <input type="file" class="form-control" id="file_upload" name="file_upload">
                             <small class="text-muted">Only accept PDF</small>
+                            @error('file_upload')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Enter Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter synopsis"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Topic Description"></textarea>
+                            @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <br>

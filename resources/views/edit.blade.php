@@ -15,11 +15,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Chapter Name</th>
                             <th>Subject</th>
                             <th>Time to Complete</th>
-                            <th>File Upload</th>
-                            <th>Description</th>
+                            <th>Chapter File</th>
+                            <th>Chapter Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>

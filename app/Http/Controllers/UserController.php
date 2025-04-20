@@ -22,19 +22,6 @@ class UserController extends Controller
         return view('profile.profile', compact('user'));
     }
 
-    public function editProfile()
-    {
-        if (Auth::guard('student')->check()) {
-            $user = Auth::guard('student')->user();
-        } elseif (Auth::guard('lecturer')->check()) {
-            $user = Auth::guard('lecturer')->user();
-        } else {
-            return redirect()->route('login');
-        }
-
-        return view('profile.edit', compact('user'));
-    }
-
     public function updateProfile(Request $request)
     {
         $request->validate([

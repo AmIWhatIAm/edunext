@@ -880,7 +880,7 @@ video {
   }
 }
 .collapse {
-  visibility: collapse;
+  visibility: visible;
 }
 .absolute {
   position: absolute;

@@ -20,8 +20,7 @@
                         <li class="list-group-item">
                             <a
                                 class="fw-semibold text-decoration-none"
-                                href="#"
-                                role="button"
+                                href="#subject{{ Str::slug($subject) }}"                                role="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#subject{{ Str::slug($subject) }}"
                                 aria-expanded="false"
@@ -84,7 +83,7 @@
                         <!-- Enter Time to Complete -->
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
-                            <input type="number" class="form-control" id="time_to_complete" name="time_to_complete" min="0">
+                            <input type="number" class="form-control" id="time_to_complete" name="time_to_complete" placeholder="e.g., 2" min="0">
                             @error('time_to_complete')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

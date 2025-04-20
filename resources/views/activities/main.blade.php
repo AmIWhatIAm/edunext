@@ -26,6 +26,11 @@
         @endforeach
       </tbody>
     </table>
+    
+    {{-- Pagination links with Bootstrap styling --}}
+    <div class="d-flex justify-content-center">
+      {{ $activities->links() }}
+    </div>
   @endif
 </div>
 @endsection

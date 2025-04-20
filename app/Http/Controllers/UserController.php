@@ -79,9 +79,10 @@ class UserController extends Controller
         }
 
         // pull all activities for this user, most recent first
+        // paginate activities (15 per page)
         $activities = UserActivity::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(15);  // <-- changed from get() to paginate()
 
         return view('activities.main', compact('activities'));
     }

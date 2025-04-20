@@ -8,6 +8,7 @@ use App\Models\Chapter;
 use App\Models\UserActivity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ChapterController extends Controller
 {
@@ -25,6 +26,10 @@ class ChapterController extends Controller
     public function studentMain($subject = null)
     {
         $subjectList = Chapter::subjects();
+
+        if ($subject) {
+            Session::put('last_subject', $subject);
+        }
         $chapters = $subject
             ? Chapter::where('subject', ucfirst($subject))
             ->get()

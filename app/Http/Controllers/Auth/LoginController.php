@@ -19,7 +19,7 @@ class LoginController extends Controller
     public function showLoginForm(Request $request)
     {
         $defaultRole = $request->query('role', 'student');
-        return view('auth.auth', ['formType' => 'login', 'defaultRole' => $defaultRole,]);
+        return view('auth.auth', compact('defaultRole'));
     }
 
     public function login(Request $request)
@@ -30,60 +30,54 @@ class LoginController extends Controller
             'role'     => 'required|in:student,lecturer',
         ]);
 
-        $roleGuard = $request->role; // “student” or “lecturer”
+        $guard = $request->role;
+        $remember = $request->boolean('remember');
+        $credentials = ['email' => $request->email, 'password' => $request->password, 'role' => $guard];
 
-        // attempt login on the selected guard
-        if (Auth::guard($roleGuard)->attempt([
-                'email' => $request->email,
-                'password' => $request->password,
-                'role' => $roleGuard
-            ])) 
-        {
-            // record a successful login
+        if (Auth::guard($guard)->attempt($credentials, $remember)) {
+            // Record login activity
             UserActivity::create([
-                'user_id'            => Auth::guard($roleGuard)->id(),
+                'user_id' => Auth::guard($guard)->id(),
                 'last_activity_type' => 'login',
-                'activity_id'        => null,
-                'is_active'          => true,
+                'activity_id' => null,
+                'is_active' => true,
             ]);
 
-            // redirect to the appropriate dashboard
-            return redirect()->route("{$roleGuard}.main");
+            return redirect()->route("{$guard}.main");
         }
 
-        // failed login — do not log with Auth::id() (it's null)
         return back()
-            ->withInput($request->only('email','role'))
-            ->withErrors(['email'=>'These credentials do not match our records.']);
+            ->withInput($request->only('email', 'role', 'remember'))
+            ->withErrors(['email' => 'Invalid credentials']);
     }
 
     public function logout(Request $request)
     {
-        // 1) detect which guard is authenticated
+        // Check which guard is active
         if (Auth::guard('lecturer')->check()) {
+            $guard = 'lecturer';
             $userId = Auth::guard('lecturer')->id();
-            Auth::guard('lecturer')->logout();
-        }
-        elseif (Auth::guard('student')->check()) {
+        } elseif (Auth::guard('student')->check()) {
+            $guard = 'student';
             $userId = Auth::guard('student')->id();
-            Auth::guard('student')->logout();
-        }
-        else {
-            // nothing to do
+        } else {
             return redirect('/login');
         }
 
-        // 2) record the logout activity
-        UserActivity::create([
-            'user_id'            => $userId,
-            'last_activity_type' => 'logout',
-            'activity_id'        => null,
-            'is_active'          => false,
-        ]);
-
-        // 3) invalidate session & regenerate CSRF token
+        // Logout
+        Auth::guard($guard)->logout();
+        
+        // Invalidate session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        // Log activity
+        UserActivity::create([
+            'user_id' => $userId,
+            'last_activity_type' => 'logout',
+            'activity_id' => null,
+            'is_active' => false,
+        ]);
 
         return redirect('/login');
     }

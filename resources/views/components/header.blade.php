@@ -6,7 +6,7 @@
     <div class="header-nav">
         <div class="header-links">
             <a href="/">Home</a>
-            <a href="#about-us">About Us</a>
+            <a href="/home/#about-us">About Us</a>
             @if (Auth::guard('student')->check() || Auth::guard('lecturer')->check())
                 <a
                     href="@if (Auth::guard('lecturer')->check()) {{ route('lecturer.main') }}

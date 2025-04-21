@@ -32,7 +32,7 @@
                                 <ul class="list-group">
                                     @foreach ($chapters as $chapter)
                                         <li class="list-group-item">
-                                            <a class="text-decoration-none" href="#">
+                                            <a class="text-decoration-none" href="{{ route('chapter.editForm', $chapter) }}">
                                                 {{ $chapter->name }}
                                             </a>
                                             <span class="badge bg-secondary float-end">
@@ -50,6 +50,21 @@
 
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-5" style="background-color: #EFF7FF;">
+                <!-- Flash Messages -->
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                
                 <div class="card shadow-lg p-4 bg-white rounded">
                     <h4 class="fw-bold mb-3" style="color: rgb(73, 197, 182);">Insert new Chapter for a Subject</h4>
 
@@ -60,7 +75,8 @@
                         <!-- Enter Chapter Name -->
                         <div class="mb-4">
                             <label for="chapter_name" class="form-label fw-semibold">Chapter Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter chapter name">
+                            <input type="text" class="form-control" id="name" name="name" 
+                                   value="{{ old('name') }}" placeholder="Enter chapter name">
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -72,7 +88,9 @@
                             <select class="form-select" id="subject" name="subject">
                                 <option selected disabled>Select Subject</option>
                                 @foreach(array_keys($subjects) as $subjectName)
-                                    <option value="{{ $subjectName }}">{{ $subjectName }}</option>
+                                    <option value="{{ $subjectName }}" {{ old('subject') == $subjectName ? 'selected' : '' }}>
+                                        {{ $subjectName }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('subject')
@@ -83,7 +101,8 @@
                         <!-- Enter Time to Complete -->
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
-                            <input type="number" class="form-control" id="time_to_complete" name="time_to_complete" placeholder="e.g., 2" min="0">
+                            <input type="number" class="form-control" id="time_to_complete" name="time_to_complete" 
+                                   value="{{ old('time_to_complete') }}" placeholder="e.g., 2" min="0">
                             @error('time_to_complete')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -102,7 +121,8 @@
                         <!-- Enter Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter Topic Description"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" 
+                                      placeholder="Enter Topic Description">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

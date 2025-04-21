@@ -880,9 +880,8 @@ video {
   }
 }
 .collapse {
-  /* visibility: collapse; */
+  visibility: collapse;
 }
-
 .absolute {
   position: absolute;
 }
@@ -1017,6 +1016,10 @@ html, body {
   padding: 0;
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.collapse {
+  visibility: visible;
 }
 
 

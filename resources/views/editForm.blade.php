@@ -16,8 +16,9 @@
                         <!-- Enter Chapter Name -->
                         <div class="mb-4">
                             <label for="name" class="form-label fw-semibold">Chapter Name</label>
+                            <!-- Name field -->
                             <input type="text" class="form-control" id="name" name="name"
-                                value="{{ $chapter->name }}" placeholder="Enter chapter name">
+                                value="{{ old('name', $chapter->name) }}" placeholder="Enter chapter name">
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -43,8 +44,9 @@
 
                         <div class="mb-4">
                             <label for="time_to_complete" class="form-label fw-semibold">Time to Complete</label>
+                            <!-- Time to Complete field -->
                             <input type="number" class="form-control" id="time_to_complete" name="time_to_complete"
-                                min="0" value="{{ $chapter->time_to_complete }}" placeholder="e.g., 2">
+                                min="0" value="{{ old('time_to_complete', $chapter->time_to_complete) }}" placeholder="e.g., 120">
                             @error('time_to_complete')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -71,7 +73,9 @@
                         <!-- Enter Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-semibold">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{ $chapter->description }}</textarea>
+                            <!-- Description textarea -->
+                            <textarea class="form-control" id="description" name="description" rows="4" 
+                                placeholder="Enter description">{{ old('description', $chapter->description) }}</textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

@@ -35,7 +35,7 @@
                 <!-- Login form fields -->
                 <div>
                     <label for="email">E-mail</label>
-                    <input type="text" id="email" name="email" placeholder="Enter your E-mail">
+                    <input type="text" id="email" name="email" placeholder="Enter your E-mail" value="{{ old('email') }}">
                 </div>
                 <div>
                     <label for="password">Password</label>
@@ -85,11 +85,11 @@
                 <!-- register form fields -->
                 <div>
                     <label for="email">E-mail</label>
-                    <input type="email" id="newEmail" name="email" placeholder="Enter your E-mail">
+                    <input type="email" id="newEmail" name="email" placeholder="Enter your E-mail" value="{{ old('form_type') === 'register' ? old('email') : '' }}">
                 </div>
                 <div>
                     <label for="newName">Name</label>
-                    <input type="text" id="newName" name="name" placeholder="Enter your Name">
+                    <input type="text" id="newName" name="name" placeholder="Enter your Name" value="{{ old('form_type') === 'register' ? old('name') : '' }}">
                 </div>
                 <div>
                     <label for="newPassword">Password</label>
@@ -109,15 +109,15 @@
                 <div class="gender-choice">
                     <span class="text-lg">Gender: </span>
                     <div>
-                        <input type="radio" id="male" name="gender" value="male" checked>
+                        <input type="radio" id="male" name="gender" value="male" {{ old('gender', 'male') === 'male' ? 'checked' : '' }}>
                         <label for="male">Male</label>
                     </div>
                     <div>
-                        <input type="radio" id="female" name="gender" value="female">
+                        <input type="radio" id="female" name="gender" value="female" {{ old('gender') === 'female' ? 'checked' : '' }}>
                         <label for="female">Female</label>
                     </div>
                     <div>
-                        <input type="radio" id="private" name="gender" value="private">
+                        <input type="radio" id="private" name="gender" value="private" {{ old('gender') === 'private' ? 'checked' : '' }}>
                         <label for="private">Private</label>
                     </div>
                 </div>
@@ -148,8 +148,6 @@
             errorAlerts.forEach(alert => {
                 alert.style.display = 'none';
             });
-
-            sessionStorage.setItem('currentForm', formType);
 
             if (formType === 'login') {
 
